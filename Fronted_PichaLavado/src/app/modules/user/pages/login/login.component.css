@@ -1,0 +1,121 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+.login-container {
+    display: flex;
+    height: 100vh;
+}
+
+.logo-section {
+    flex: 1;
+    background: #000;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+}
+
+.logo {
+    width: 200px; /* Can be adjusted based on design */
+    margin-bottom: 1.5rem; /* Space for brand name */
+}
+
+.brand-name {
+    font-size: 2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem; /* Added margin for spacing */
+}
+
+.tagline {
+    font-size: 1.2rem;
+    color: #ff0000; /* More consistent color definition */
+}
+
+.form-section {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+form {
+    background: #fff;
+    padding: 2rem; /* Enhanced padding for better touch */
+    border-radius: 10px; /* Slightly larger radius for a modern look */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    width: 90%; /* Responsive width */
+    max-width: 400px; /* Limit max-width for better mobile UX */
+}
+
+label {
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    display: block; /* Ensures full width */
+}
+
+input {
+    width: 100%;
+    padding: 12px; /* Increased padding for usability */
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: border 0.3s; /* Smooth transition for border */
+}
+
+input:focus {
+    border-color: #007BFF; /* Focus effect for better UX */
+}
+
+.btn-signin {
+    width: 100%;
+    padding: 12px; /* Increased button padding */
+    background: #000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+.btn-primary {
+    color: #fff;
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    border-color: #2980b9;
+  }
+
+.btn-signin:hover {
+    background: #ff0000; /* Clearer hover state */
+}
+
+.auth-links {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem; /* Improved spacing */
+}
+
+.register-link,
+.forgot-password {
+    color: #007BFF; /* Standardized link color */
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: text-decoration 0.3s;
+}
+
+.register-link:hover,
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .login-container {
+        flex-direction: column; /* Responsive stacking on small screens */
+    }
+}

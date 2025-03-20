@@ -1,0 +1,284 @@
+/* Reset global de estilos para eliminar márgenes y rellenos predeterminados */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* Garantiza que el tamaño de los elementos incluya padding y border */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fuente predeterminada */
+}
+
+/* Estilos generales del cuerpo */
+body {
+  background-color: #f5f5f5; /* Color de fondo claro */
+  color: #333; /* Color de texto oscuro */
+  line-height: 1.6; /* Espaciado entre líneas */
+}
+
+/* Contenedor principal del login */
+.login-container {
+  display: flex; /* Diseño en columnas flexibles */
+  min-height: auto; /* Ocupa toda la altura de la pantalla */
+}
+
+/* Sección del logo en el formulario */
+.logo-section {
+  flex: 1; /* Ocupa la mitad del contenedor */
+  background-color: #020202; /* Degradado de colores oscuros */
+  color: #fff; /* Texto blanco */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 3rem;
+  position: relative;
+  overflow: hidden; /* Evita desbordamientos */
+}
+
+/* Efecto visual en la sección del logo */
+.logo-section::before {
+  content: "";
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background: rgba(255, 255, 255, 0.05);
+  transform: rotate(45deg);
+  top: -50%;
+  left: -50%;
+}
+
+/* Nombre de la marca en la sección del logo */
+.brand-name {
+  font-size: 2.5rem;
+  font-weight: 700; /* Texto en negrita */
+  text-transform: uppercase; /* Convierte el texto a mayúsculas */
+  margin-bottom: 1rem;
+  letter-spacing: 1px; /* Espaciado entre letras */
+  position: relative;
+  z-index: 1; /* Asegura que esté por encima del fondo */
+}
+
+/* Texto de subtítulo debajo de la marca */
+.tagline {
+  font-size: 1.3rem;
+  color: #f20000; /* Azul vibrante */
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* Sección del formulario */
+.form-section {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background-color: #fff; /* Fondo blanco */
+}
+
+/* Contenedor del formulario */
+.form-container {
+  background: #fff;
+  padding: 2.5rem;
+  border-radius: 12px; /* Bordes redondeados */
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08); /* Sombra sutil */
+  width: 100%;
+  max-width: 550px; /* Ancho máximo del formulario */
+}
+
+/* Título principal del formulario */
+.form-title {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  color: #020202; /* Azul oscuro */
+  text-align: center;
+}
+
+/* Subtítulo del formulario */
+.form-subtitle {
+  font-size: 1rem;
+  margin-bottom: 2rem;
+  color: #7f8c8d; /* Gris */
+  text-align: center;
+}
+
+/* Fila de formulario con diseño flexible */
+.form-row {
+  display: flex;
+  flex-wrap: wrap; /* Permite que los elementos pasen a la siguiente línea */
+  margin-bottom: 1rem;
+  gap: 1rem; /* Espaciado entre elementos */
+}
+
+/* Grupo de cada campo del formulario */
+.form-group {
+  flex: 1 0 calc(50% - 0.5rem); /* Cada campo ocupa la mitad del ancho */
+  margin-bottom: 1.5rem;
+  min-width: 250px;
+}
+
+/* Grupo que ocupa todo el ancho */
+.form-group.full-width {
+  flex: 1 0 100%;
+}
+
+/* Estilos de etiquetas de los inputs */
+label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  display: block;
+  color: #2c3e50;
+}
+
+/* Contenedor de inputs con iconos */
+.input-group {
+  position: relative;
+}
+
+/* Prefijo dentro de los inputs */
+.input-group-prepend {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  background-color: #f7f9fa;
+  border: 1px solid #e1e5e8;
+  border-right: none;
+  border-radius: 6px 0 0 6px;
+  color: #6c757d;
+}
+
+/* Estilos de los inputs y selects */
+input, select {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #e1e5e8;
+  border-radius: 6px;
+  transition: all 0.3s;
+  font-size: 1rem;
+}
+
+/* Ajusta el padding de los inputs cuando tienen un prefijo */
+.input-group input {
+  padding-left: 55px;
+}
+
+/* Efecto de enfoque en los inputs */
+input:focus, select:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.25);
+  outline: none;
+}
+
+/* Estilo para contraseñas */
+input[type="password"] {
+  letter-spacing: 0.1em; /* Espaciado de caracteres */
+}
+
+/* Feedback de validación */
+.feedback {
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+}
+
+/* Mensaje de validación correcto */
+.valid-feedback {
+  color: #2ecc71; /* Verde */
+  display: none;
+}
+
+/* Mensaje de validación incorrecto */
+.invalid-feedback {
+  color: #e74c3c; /* Rojo */
+  display: none;
+}
+
+/* Muestra feedback cuando el campo es válido */
+input:valid ~ .valid-feedback,
+select:valid ~ .valid-feedback {
+  display: block;
+}
+
+/* Muestra feedback cuando el campo es inválido */
+input:invalid:not(:focus):not(:placeholder-shown) ~ .invalid-feedback,
+select:invalid:not(:placeholder-shown) ~ .invalid-feedback {
+  display: block;
+}
+
+/* Checkbox de términos y condiciones */
+.form-check {
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: flex-start;
+}
+
+/* Estilos para el checkbox */
+.form-check-input {
+  width: auto;
+  margin-right: 10px;
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+
+/* Enlace de texto */
+.text-link {
+  color: #3498db;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.text-link:hover {
+  color: #2980b9;
+  text-decoration: underline;
+}
+
+/* Estilos generales de botones */
+.btn {
+  display: inline-block;
+  font-weight: 600;
+  text-align: center;
+  white-space: nowrap;
+  user-select: none;
+  border: 1px solid transparent;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 6px;
+  transition: all 0.2s;
+  cursor: pointer;
+  width: 100%;
+}
+
+/* Botón principal con degradado */
+.btn-primary {
+  color: #fff;
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  border-color: #2980b9;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #2980b9, #2573a7);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(41, 128, 185, 0.3);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 5px rgba(41, 128, 185, 0.3);
+}
+
+/* Botón para mostrar/ocultar contraseña */
+.password-toggle {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #6c757d;
+}
