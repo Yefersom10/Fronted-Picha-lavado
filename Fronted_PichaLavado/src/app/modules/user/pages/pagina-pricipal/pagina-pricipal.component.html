@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Wash Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <header class="header">
+            <div class="logo">
+                <img src="https://i.imgur.com/8sF30nB.png" alt="Car Wash Logo" class="logo-image">
+                <h1>Picha Lavado</h1>
+            </div>
+            <nav class="user-menu">
+                <div class="user-greeting">
+                    <span class="welcome-text">Bienvenido, </span>
+                    <span class="user-name">{{ userName }}</span>
+                </div>
+                <button class="logout-btn" (click)="logout()">
+                    <i class="icon-logout"></i>
+                    Cerrar Sesión
+                </button>
+            </nav>
+        </header>
+
+        <main class="main-content">
+            <section class="quick-actions">
+                <div class="action-card">
+                    <h2>Nuevo Servicio</h2>
+                    <button class="action-btn">Iniciar Lavado</button>
+                </div>
+                <div class="action-card">
+                    <h2>Historial</h2>
+                    <button class="action-btn">Ver Servicios</button>
+                </div>
+                <div class="action-card">
+                    <h2>Estadísticas</h2>
+                    <button class="action-btn">Ver Reportes</button>
+                </div>
+            </section>
+
+            <section class="recent-services">
+                <h2>Servicios Recientes</h2>
+                <table class="services-table">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Vehículo</th>
+                            <th>Tipo de Servicio</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>26/03/2025</td>
+                            <td>Toyota Corolla</td>
+                            <td>Lavado Completo</td>
+                            <td><span class="status completed">Completado</span></td>
+                        </tr>
+                        <!-- More table rows can be added dynamically -->
+                    </tbody>
+                </table>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>&copy; 2025 MiLavadero. Todos los derechos reservados.</p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -10,5 +10,5 @@ import { RouterModule, RouterOutlet } from '@angular/router';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'Fronted_PichaLavado';
+  title = 'Picha Lavado';
 }

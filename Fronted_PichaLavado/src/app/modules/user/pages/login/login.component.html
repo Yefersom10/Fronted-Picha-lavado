@@ -7,21 +7,57 @@
         <p class="tagline">CLEAN & SHINE</p>
     </div>
     <div class="form-section">
-        <form>
-            <div class="mb-3">
-                <label for="emailInput" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="emailInput" aria-describedby="emailHelp" required>
-                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+        <div class="form-wrapper">
+            <!-- Notificación dinámica -->
+            <div *ngIf="notification" class="notification" [ngClass]="[notification.type]">
+                {{ notification.message }}
             </div>
-            <div class="mb-3">
-                <label for="passwordInput" class="form-label">Password</label>
-                <input type="password" class="form-control" id="passwordInput" required>
-            </div>
-            <button class="btn btn-primary" type="submit">Iniciar Sesion</button>
-            <div class="auth-links">
-                <a href="register" class="nav-button">Crear cuenta</a>
-                <a href="home" class="nav-button">Home</a>
-            </div>
-        </form>
+            
+            <form [formGroup]="login" (ngSubmit)="handleSubmit()">
+                <div class="form-header">
+                    <h2>Iniciar Sesión</h2>
+                    <p>Ingrese sus credenciales para acceder</p>
+                </div>
+                <div class="form-group">
+                    <label for="emailInput">Correo Electrónico</label>
+                    <div class="input-container">
+                        <i class="icon-mail"></i>
+                        <input type="email" id="emailInput" formControlName="userId" placeholder="usuario@ejemplo.com"
+                            required>
+                    </div>
+                    <small class="form-hint">Ingrese su correo electrónico registrado</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="passwordInput">Contraseña</label>
+                    <div class="input-container">
+                        <i class="icon-lock"></i>
+                        <input [type]="passwordVisible ? 'text' : 'password'" id="passwordInput" formControlName="password"
+                            placeholder="Contraseña" required>
+                        <i class="icon-eye-off toggle-password" (click)="togglePasswordVisibility()"></i>
+                    </div>
+                    <small class="form-hint">
+                        <a href="javascript:void(0)" class="forgot-password" [class.disabled]="true">
+                            ¿Olvidaste tu contraseña?
+                        </a>
+                    </small>
+                </div>
+                <div class="loader" *ngIf="isLoading">🚗</div>
+                <button type="submit" class="btn btn-primary" [disabled]="isLoading">
+                    {{ isLoading ? 'Cargando...' : 'Iniciar Sesión' }}
+                </button>
+
+                <div class="form-footer">
+                    <p>¿No tienes una cuenta?
+                        <a href="/register" class="create-account">Crear cuenta</a>
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Loader: Se muestra solo cuando isLoading es true -->
+    <div *ngIf="isLoading" class="loader-container">
+        <div class="loader">🚗..........</div>
     </div>
 </div>
