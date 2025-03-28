@@ -206,3 +206,56 @@ input {
     transform: translateX(-200%);
   }
 }
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+/* Open Eye Icon */
+.toggle-password::before,
+.toggle-password::after {
+  content: '';
+  position: absolute;
+  background: #333;
+  transition: all 0.3s ease;
+}
+
+/* Eye Outline */
+.toggle-password::before {
+  width: 20px;
+  height: 10px;
+  border: 2px solid #333;
+  border-bottom: none;
+  border-radius: 10px 10px 0 0;
+  top: 7px;
+  left: 2px;
+}
+
+/* Pupil */
+.toggle-password::after {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #333;
+  top: 12px;
+  left: 9px;
+}
+
+/* Closed/Hidden Eye Icon */
+.toggle-password.password-hidden::before {
+  transform: rotate(-45deg);
+  width: 2px;
+  height: 24px;
+  background: red;
+  top: 0;
+  left: 11px;
+}
+
+.toggle-password.password-hidden::after {
+  opacity: 0;
+}
