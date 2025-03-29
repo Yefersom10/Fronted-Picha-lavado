@@ -1,38 +1,39 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { Component } from '@angular/core';
-import { 
-  FormControl, 
-  FormGroup, 
-  FormsModule, 
-  ReactiveFormsModule, 
-  Validators, 
-  AbstractControl 
+import { ChangeDetectorRef, Component } from '@angular/core';
+import {
+  FormControl, FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+  AbstractControl,
+  ValidationErrors
 } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+import { debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-register',
   standalone: true,
   imports: [
-    CommonModule, 
-    FormsModule, 
-    ReactiveFormsModule, 
-    HttpClientModule, 
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
     RouterModule
   ],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
-  // Password visibility flags
   showPassword = false;
   showConfirmPassword = false;
-
-  // Loading state
   isLoading = false;
+  emailExists = false;
+  registerSuccess = false;
+  registerError = false;
+  formInvalid = false;
 
-  // Form group for registration
   register = new FormGroup({
     email: new FormControl('', [
       Validators.required,
@@ -43,18 +44,18 @@ export class RegisterComponent {
       Validators.minLength(2),
       Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/)
     ]),
-    surname: new FormControl('', [
+    apellido: new FormControl('', [
       Validators.required,
       Validators.minLength(2),
       Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/)
     ]),
-    phone: new FormControl('', [
+    telefono: new FormControl('', [
       Validators.required,
       Validators.pattern(/^[0-9]{9,10}$/)
     ]),
     password: new FormControl('', [
       Validators.required,
-      Validators.minLength(8),
+      Validators.minLength(5), // ✅ Mínimo 5 caracteres
       this.passwordValidator
     ]),
     confirmPassword: new FormControl('', [
@@ -62,101 +63,102 @@ export class RegisterComponent {
     ])
   }, { validators: this.passwordMatchValidator });
 
-  // State flags
-  registerSuccess = false;
-  registerError = false;
-  formInvalid = false;
-
   constructor(
-    private httpClient: HttpClient, 
-    private router: Router
-  ) {}
+    private httpClient: HttpClient,
+    private router: Router, private cd: ChangeDetectorRef
+  ) { }
 
-  // Password complexity validator
-  passwordValidator(control: FormControl): { [key: string]: any } | null {
+  passwordValidator(control: FormControl): ValidationErrors | null {
     const value = control.value || '';
-    const hasUpperCase = /[A-Z]/.test(value);
-    const hasLowerCase = /[a-z]/.test(value);
-    const hasNumber = /[0-9]/.test(value);
-    const hasSpecialChar = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(value);
-
-    const passwordValid = hasUpperCase && hasLowerCase && hasNumber && hasSpecialChar;
-    
-    return passwordValid ? null : { 'passwordInvalid': true };
+    const hasUpperCase = /[A-Z]/.test(value); // ✅ Al menos una mayúscula
+    return value.length >= 5 && hasUpperCase ? null : { passwordInvalid: true };
   }
 
-  // Password match validator
-  passwordMatchValidator(group: AbstractControl): { [key: string]: any } | null {
+  passwordMatchValidator(group: AbstractControl): ValidationErrors | null {
     const password = group.get('password')?.value;
     const confirmPassword = group.get('confirmPassword')?.value;
-
-    return password === confirmPassword ? null : { 'passwordMismatch': true };
+    return password === confirmPassword ? null : { passwordMismatch: true };
   }
 
-  // Toggle password visibility
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }
-
-  // Toggle confirm password visibility
-  toggleConfirmPasswordVisibility() {
-    this.showConfirmPassword = !this.showConfirmPassword;
+  resetEmailExists() {
+    this.emailExists = false;
+    this.cd.detectChanges();  // 🔹 Forzar detección de cambios
   }
 
-  // Handle form submission
+  checkEmail() {
+    const email = this.register.get('email')?.value;
+    console.log("🔹 checkEmail() se ejecutó con email:", email);
+  
+    if (!email) {
+      this.emailExists = false;
+      console.log("🚨 Email vacío, reseteando emailExists:", this.emailExists);
+      return;
+    }
+  
+    this.httpClient.get<{ exists: boolean }>(`http://localhost:8082/auth/checkEmail?email=${email}`)
+      .subscribe({
+        next: (response) => {
+          this.emailExists = response.exists;
+          console.log("✅ Respuesta de la API:", response.exists);
+        },
+        error: (err) => {
+          this.emailExists = false;
+          console.error("❌ Error en la petición:", err);
+        }
+      });
+  }
+  
   handleSubmit() {
-    // Mark all fields as touched to show validation errors
     this.register.markAllAsTouched();
 
-    // Check form validity
-    if (this.register.invalid) {
+    if (this.register.invalid || this.register.hasError('passwordMismatch')) {
       this.formInvalid = true;
       setTimeout(() => (this.formInvalid = false), 3000);
       return;
     }
 
-    // Check password match
-    if (this.register.hasError('passwordMismatch')) {
+    if (this.emailExists) {
       return;
     }
 
-    // Prepare user data
     const userData = {
       email: this.register.value.email || '',
-      apellido: this.register.value.surname || '',
+      apellido: this.register.value.apellido || '',
       name: this.register.value.name || '',
       password: this.register.value.password || '',
-      telefono: this.register.value.phone || ''
+      telefono: this.register.value.telefono || ''
     };
 
-    // Set loading state
     this.isLoading = true;
 
-    // Send registration request
-    this.httpClient.post('http://localhost:8082/addUser', userData).subscribe(
-      (response: any) => {
-        console.log("Registro exitoso:", response);
+    this.httpClient.post('http://localhost:8082/auth/register', userData).subscribe({
+      next: () => {
         this.registerSuccess = true;
         this.registerError = false;
-        this.formInvalid = false;
+        this.emailExists = false;
         this.register.reset();
-        
-        // Simulate loading and navigation
+
         setTimeout(() => {
           this.isLoading = false;
           this.router.navigate(['/login']);
         }, 2000);
       },
-      (error) => {
+      error: (error) => {
         console.error("Error en el registro:", error);
         this.registerError = true;
-        this.registerSuccess = false;
         this.isLoading = false;
-        
+
+        if (error.status === 400 && error.error?.message === 'El correo ya está registrado') {
+          this.emailExists = true;
+        }
+
         setTimeout(() => {
           this.registerError = false;
         }, 3000);
       }
-    );
+    });
   }
 }

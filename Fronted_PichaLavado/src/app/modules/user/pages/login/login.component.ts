@@ -16,7 +16,7 @@ export class LoginComponent {
   private apiUrl = 'http://localhost:8082/loginUser';
 
   login = new FormGroup({
-    userId: new FormControl('', [Validators.required, Validators.email]),
+    email: new FormControl('', [Validators.required, Validators.email]), // Cambio: Se usa id en lugar de email
     password: new FormControl('', Validators.required)
   });
 
