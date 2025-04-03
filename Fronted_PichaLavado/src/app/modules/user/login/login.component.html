@@ -37,10 +37,10 @@
                         <i class="icon-eye-off toggle-password" (click)="togglePasswordVisibility()"></i>
                     </div>
                     <small class="form-hint">
-                        <a href="javascript:void(0)" class="forgot-password" [class.disabled]="true">
-                            ¿Olvidaste tu contraseña?
+                        <a href="/forgot-password" class="forgot-password">
+                          ¿Olvidaste tu contraseña?
                         </a>
-                    </small>
+                      </small>
                 </div>
                 <div class="loader" *ngIf="isLoading">🚗</div>
                 <button type="submit" class="btn btn-primary" [disabled]="isLoading">

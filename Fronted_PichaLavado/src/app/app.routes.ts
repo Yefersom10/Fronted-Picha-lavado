@@ -4,7 +4,9 @@ import { RegisterComponent } from './modules/user/register/register.component';
 import { LoginComponent } from './modules/user/login/login.component';
 import { PaginaPricipalComponent } from './modules/user/pages/pagina-pricipal/pagina-pricipal.component';
 import { ForgotPasswordComponent } from './modules/user/pages/forgot-password/forgot-password.component';
-import { ResetPasswordComponent } from './modules/user/pages/reset-password/reset-password.component';
+import { RegisterCarsComponent } from './modules/user/pages/register-cars/register-cars.component';
+import { AutosComponent } from './modules/admin/autos/autos.component';
+
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -12,6 +14,7 @@ export const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'pagina-principal', component: PaginaPricipalComponent },
     { path: 'forgot-password', component: ForgotPasswordComponent },
-    {path: 'reset-password', component: ResetPasswordComponent}, // Assuming you want to use the same component for reset password
-    { path: '**', redirectTo: '' } // Redirect to home
+    { path: 'register-cars', component: RegisterCarsComponent }, 
+    { path: 'autos/list', component: AutosComponent }, 
+    { path: '**', redirectTo: '' } 
 ];

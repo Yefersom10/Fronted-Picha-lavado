@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, AbstractControl } from '@angular/forms';
-import { AuthService } from '../../../../auth.service';
+import { FormBuilder, ReactiveFormsModule, AbstractControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { AuthService } from '../../../../service/auth.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-forgot-password',
@@ -15,8 +16,8 @@ import { RouterModule } from '@angular/router';
 export class ForgotPasswordComponent {
   forgotPasswordForm: FormGroup;
   isSubmitting = false;
-  successMessage = '';
-  errorMessage = '';
+  successMessage: string = '';
+  errorMessage: string = '';
 
   constructor(private fb: FormBuilder, private authService: AuthService) {
     this.forgotPasswordForm = this.fb.group({
@@ -25,39 +26,41 @@ export class ForgotPasswordComponent {
     });
   }
 
-  // Getters para acceder fácilmente a los controles del formulario
-  get email(): AbstractControl {
+  get email() {
     return this.forgotPasswordForm.get('email');
   }
 
-  get telefono(): AbstractControl {
+  get telefono() {
     return this.forgotPasswordForm.get('telefono');
   }
 
   onSubmit() {
-    if (this.forgotPasswordForm.valid) {
-      this.isSubmitting = true;
-      this.errorMessage = '';
-      this.successMessage = '';
-
-      const requestBody = {
-        email: this.forgotPasswordForm.value.email,
-        telefono: this.forgotPasswordForm.value.telefono
-      };
-
-      this.authService.forgotPassword(requestBody).subscribe({
-        next: () => {
-          this.isSubmitting = false;
-          this.successMessage = 'Revisa tu correo para restablecer la contraseña.';
-          this.forgotPasswordForm.reset();
-        },
-        error: () => {
-          this.isSubmitting = false;
-          this.errorMessage = 'Hubo un error, intenta nuevamente.';
-        }
-      });
-    } else {
-      this.forgotPasswordForm.markAllAsTouched();
+    if (this.forgotPasswordForm.invalid) {
+      return;
     }
+  
+    this.isSubmitting = true;
+    this.errorMessage = '';
+    this.successMessage = '';
+  
+    const { email, telefono } = this.forgotPasswordForm.value;
+  
+    forkJoin([
+      this.authService.forgotPasswordAuth(email, telefono),  // Llamada a AuthController
+      this.authService.forgotPasswordUsers(email, telefono)  // Llamada a UsersController
+    ]).subscribe({
+      next: ([authResponse, userResponse]) => {
+        console.log("Respuesta de AuthController:", authResponse);
+        console.log("Respuesta de UsersController:", userResponse);
+        
+        this.successMessage = "Se han enviado las instrucciones a tu correo.";
+        this.isSubmitting = false;
+      },
+      error: (error) => {
+        console.error("Error en la solicitud:", error);
+        this.errorMessage = "Ocurrió un error al procesar la solicitud.";
+        this.isSubmitting = false;
+      }
+    });
   }
 }

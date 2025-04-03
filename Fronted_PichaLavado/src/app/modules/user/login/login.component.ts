@@ -13,23 +13,19 @@ import { Router, RouterModule } from '@angular/router';
 })
 export class LoginComponent {
 
-  private apiUrl = 'http://localhost:8082/loginUser';
+  private apiUrl = 'http://localhost:8082/auth/login';
+
 
   login = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]), // Cambio: Se usa id en lugar de email
+    email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', Validators.required)
   });
 
-  loginSuccess = false;
-  loginError = false;
-  formInvalid = false;
-  errorMessage = '';
-  welcomeMessage = ''; // Para mostrar el nombre del usuario
-
   notification: { message: string; type: 'success' | 'error' } | null = null;
-  isLoading = false; // Estado para gestionar el loader
+  isLoading = false;
 
-  constructor(private httpClient: HttpClient, private router: Router) {}
+  constructor(private httpClient: HttpClient, private router: Router) { }
+
 
   public async handleSubmit() {
     this.login.markAllAsTouched();
@@ -39,52 +35,67 @@ export class LoginComponent {
       return;
     }
   
-    this.isLoading = true; // Mostrar loader mientras se procesa la solicitud
-  
+    this.isLoading = true;
     try {
-      const response: any = await this.httpClient.post(this.apiUrl, this.login.value, { withCredentials: true }).toPromise();
-      console.log(response);
+      const loginData = {
+        email: this.login.get('email')?.value?.trim(),
+        password: this.login.get('password')?.value
+      };
   
-      localStorage.setItem('userName', response.name);
-      this.showNotification(`¡Bienvenido, ${response.name}!`, 'success');
+      this.httpClient.post(this.apiUrl, loginData, { observe: 'response', withCredentials: true })
+        .subscribe({
+          next: (res) => {
+            if (res.status === 200) {
+              try {
+                const responseBody = res.body as any;
+                localStorage.setItem('userName', responseBody.name);
+                this.showNotification(`¡Bienvenido, ${responseBody.name}!`, 'success');
+                this.login.reset();
+                setTimeout(() => {
+                  this.router.navigate(['/pagina-principal']);
+                }, 2000);
+              } catch (error) {
+                console.log("La respuesta no es JSON válido, podría ser HTML", res);
+                this.showNotification('Error inesperado en la respuesta del servidor.', 'error');
+              }
+            }
+          },
+          error: (error) => {
+            console.error('Error en la solicitud:', error);
+            if (error.status === 401) {
+              this.showNotification('Credenciales incorrectas. Intente de nuevo.', 'error');
+            } else {
+              this.showNotification(error.error?.message || 'Error al iniciar sesión.', 'error');
+            }
+          }
+        });
   
-      this.login.reset();
-  
-      setTimeout(() => {
-        this.router.navigate(['/pagina-principal']);
-      }, 2000);
-      
-    } catch (error: any) {
-      console.error(error);
-      if (error.status === 401) {
-        this.showNotification('Credenciales incorrectas. Intente de nuevo.', 'error');
-      } else {
-        this.showNotification(error.error?.message || 'Error al iniciar sesión.', 'error');
-      }
+    } catch (error) {
+      console.error('Error en el proceso de login:', error);
+      this.showNotification('Ocurrió un error inesperado.', 'error');
     } finally {
-      // Asegurarse de ocultar el loader después de la respuesta del servidor
-      setTimeout(() => {
-        this.isLoading = false;
-      }, 500);
+      this.isLoading = false;
     }
   }
   
-  // Método para mostrar notificaciones con animación
+
   showNotification(message: string, type: 'success' | 'error') {
     this.notification = { message, type };
-  
+
     setTimeout(() => {
       document.querySelector('.notification')?.classList.add('hide');
       setTimeout(() => (this.notification = null), 500);
     }, 1000);
   }
-  
-  // Método para alternar la visibilidad de la contraseña
+
+
   togglePasswordVisibility() {
     const passwordInput = document.getElementById('passwordInput') as HTMLInputElement;
     if (passwordInput) {
       passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
     }
   }
+
   passwordVisible = false;
+  
 }
