@@ -2,14 +2,14 @@ import { Component } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, AbstractControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterLink, RouterModule } from '@angular/router';
 import { AuthService } from '../../../../service/auth.service';
 import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-forgot-password',
   standalone: true,
-  imports: [ReactiveFormsModule, HttpClientModule, CommonModule, RouterModule],
+  imports: [ReactiveFormsModule, HttpClientModule, CommonModule, RouterModule,RouterLink],
   templateUrl: './forgot-password.component.html',
   styleUrls: ['./forgot-password.component.css']
 })
@@ -33,7 +33,7 @@ export class ForgotPasswordComponent {
   get telefono() {
     return this.forgotPasswordForm.get('telefono');
   }
-
+  
   onSubmit() {
     if (this.forgotPasswordForm.invalid) {
       return;
@@ -45,14 +45,9 @@ export class ForgotPasswordComponent {
   
     const { email, telefono } = this.forgotPasswordForm.value;
   
-    forkJoin([
-      this.authService.forgotPasswordAuth(email, telefono),  // Llamada a AuthController
-      this.authService.forgotPasswordUsers(email, telefono)  // Llamada a UsersController
-    ]).subscribe({
-      next: ([authResponse, userResponse]) => {
-        console.log("Respuesta de AuthController:", authResponse);
+    this.authService.forgotPasswordUsers(email, telefono).subscribe({
+      next: (userResponse) => {
         console.log("Respuesta de UsersController:", userResponse);
-        
         this.successMessage = "Se han enviado las instrucciones a tu correo.";
         this.isSubmitting = false;
       },
