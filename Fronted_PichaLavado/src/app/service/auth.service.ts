@@ -15,6 +15,12 @@ export class AuthService {
     return this.http.post<any>(`${this.apiUrlAuth}/login`, { email, password }, { withCredentials: true });
   }
 
+  getCurrentUser(): Observable<any> {
+    return this.http.get('http://localhost:8082/auth/current', {
+      withCredentials: true
+    });
+  }
+
   logout() {
     return this.http.post(`${this.apiUrlAuth}/logout`, {}, { withCredentials: true });
   }

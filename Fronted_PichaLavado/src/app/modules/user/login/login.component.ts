@@ -46,18 +46,40 @@ export class LoginComponent {
         .subscribe({
           next: (res) => {
             if (res.status === 200) {
-              try {
-                const responseBody = res.body as any;
-                localStorage.setItem('userName', responseBody.name);
-                this.showNotification(`¡Bienvenido, ${responseBody.name}!`, 'success');
-                this.login.reset();
-                setTimeout(() => {
-                  this.router.navigate(['/pagina-principal']);
-                }, 2000);
-              } catch (error) {
-                console.log("La respuesta no es JSON válido, podría ser HTML", res);
-                this.showNotification('Error inesperado en la respuesta del servidor.', 'error');
-              }
+              // Hacer otra llamada para obtener los datos actuales de sesión
+              this.httpClient.get('http://localhost:8082/auth/current', { withCredentials: true })
+                .subscribe({
+                  next: (userData: any) => {
+                    console.log('Usuario actual desde sesión:', userData);
+  
+                    const userName = userData.name;
+                    const userRole = userData.role;
+  
+                    localStorage.setItem('userName', userName);
+                    localStorage.setItem('userRole', userRole);
+  
+                    this.showNotification(`¡Bienvenido, ${userName}!`, 'success');
+                    this.login.reset();
+  
+                    setTimeout(() => {
+                      switch (userRole) {
+                        case 'CLIENTE':
+                          this.router.navigate(['/pagina-principal']);
+                          break;
+                        case 'ADMIN':
+                          this.router.navigate(['/qw/gestor-trabajadores']);
+                          break;
+                        default:
+                          this.router.navigate(['/pagina-principal']);
+                          break;
+                      }
+                    }, 2000);
+                  },
+                  error: (err) => {
+                    console.error('Error al obtener usuario desde sesión:', err);
+                    this.showNotification('No se pudo verificar al usuario. Intenta de nuevo.', 'error');
+                  }
+                });
             }
           },
           error: (error) => {
@@ -77,6 +99,8 @@ export class LoginComponent {
       this.isLoading = false;
     }
   }
+  
+  
   
 
   showNotification(message: string, type: 'success' | 'error') {
