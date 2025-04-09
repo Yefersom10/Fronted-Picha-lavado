@@ -19,7 +19,6 @@ import { debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs/operato
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule,
     RouterModule
   ],
   templateUrl: './register.component.html',

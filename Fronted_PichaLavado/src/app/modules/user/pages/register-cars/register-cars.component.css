@@ -104,3 +104,12 @@ input[type="radio"]:checked {
         padding: 15px;
     }
 }
+.alert-error {
+    background-color: #f8d7da; /* Color de fondo rojo claro */
+    color: #721c24; /* Color del texto rojo oscuro */
+    padding: 10px;
+    border: 1px solid #f5c6cb; /* Borde en tono rojo claro */
+    border-radius: 5px;
+    margin-bottom: 15px;
+    font-weight: bold;
+}

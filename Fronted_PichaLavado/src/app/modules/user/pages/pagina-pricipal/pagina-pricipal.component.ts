@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 
 @Component({
@@ -7,19 +7,28 @@ import { Router, RouterLink } from '@angular/router';
   templateUrl: './pagina-pricipal.component.html',
   styleUrl: './pagina-pricipal.component.css'
 })
-export class PaginaPricipalComponent {
+export class PaginaPricipalComponent implements OnInit {
 
   userName: string | null = '';
+  nuevoAuto: any = null; // ✅ Aquí se guarda el auto recibido
 
   constructor(private router: Router) {}
 
   ngOnInit() {
-    // Recuperamos el nombre del usuario almacenado en localStorage
+    // Recuperamos el nombre del usuario
     this.userName = localStorage.getItem('userName');
+
+    // ✅ Obtenemos el estado (el auto registrado)
+    const navigation = this.router.getCurrentNavigation();
+    this.nuevoAuto = navigation?.extras?.state?.['nuevoAuto'];
+
+    if (this.nuevoAuto) {
+      console.log('🚗 Auto registrado recibido:', this.nuevoAuto);
+    }
   }
 
   logout() {
-    localStorage.removeItem('userName'); // Eliminamos el nombre del usuario
-    this.router.navigate(['/login']); // Redirigimos a la página de login
+    localStorage.removeItem('userName');
+    this.router.navigate(['/login']);
   }
 }

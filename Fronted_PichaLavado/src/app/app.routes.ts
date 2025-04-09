@@ -7,6 +7,7 @@ import { ForgotPasswordComponent } from './modules/user/pages/forgot-password/fo
 import { RegisterCarsComponent } from './modules/user/pages/register-cars/register-cars.component';
 import { AutosComponent } from './modules/admin/autos/autos.component';
 import { GestorTrabajadoresComponent } from './modules/admin/gestor-trabajadores/gestor-trabajadores.component';
+import { VehicleListComponent } from './vehicle-list/vehicle-list.component';
 
 
 export const routes: Routes = [
@@ -17,6 +18,7 @@ export const routes: Routes = [
     { path: 'forgot-password', component: ForgotPasswordComponent },
     { path: 'register-cars', component: RegisterCarsComponent }, 
     { path: 'autos/list', component: AutosComponent }, 
-    { path: 'qw/gestor-trabajadores', component: GestorTrabajadoresComponent }, 
+    { path: 'qw/gestor-trabajadores', component: GestorTrabajadoresComponent },
+    {path: "vehicle-list", component: VehicleListComponent} ,
     { path: '**', redirectTo: '' } 
 ];

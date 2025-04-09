@@ -1,0 +1,60 @@
+// 8. HTML de la Lista de Vehículos actualizado
+// src/app/components/vehicle-list/vehicle-list.component.html
+
+<div class="container">
+  <div class="card">
+    <div class="card-header bg-info text-white">
+      <h4>Mis Vehículos</h4>
+    </div>
+    <div class="card-body">
+      <div *ngIf="errorMessage" class="alert alert-danger">
+        {{ errorMessage }}
+      </div>
+      
+      <div *ngIf="loading" class="text-center p-4">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Cargando...</span>
+        </div>
+        <p class="mt-2">Cargando vehículos...</p>
+      </div>
+      
+      <div *ngIf="!loading && !errorMessage && vehicles.length === 0" class="alert alert-info">
+        No tienes vehículos registrados.
+      </div>
+      
+      <div *ngIf="!loading && !errorMessage && vehicles.length > 0" class="table-responsive">
+        <table class="table table-striped table-hover">
+          <thead class="table-light">
+            <tr>
+              <th>Marca</th>
+              <th>Modelo</th>
+              <th>Año</th>
+              <th>Placa</th>
+              <th>Color</th>
+              <th>Tipo</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let vehicle of vehicles">
+              <td>{{ vehicle.marca }}</td>
+              <td>{{ vehicle.modelo }}</td>
+              <td>{{ vehicle.anio }}</td>
+              <td>{{ vehicle.placa }}</td>
+              <td>{{ vehicle.color }}</td>
+              <td>{{ vehicle.tipoDeVehiculo }}</td>
+              <td>
+                <button class="btn btn-sm btn-primary me-1" [routerLink]="['/vehicle-edit', vehicle.id]">
+                  Editar
+                </button>
+                <button class="btn btn-sm btn-danger" (click)="deleteVehicle(vehicle.id)">
+                  Eliminar
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
