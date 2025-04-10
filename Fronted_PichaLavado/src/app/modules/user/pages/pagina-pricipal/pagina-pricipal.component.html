@@ -1,72 +1,58 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Car Wash Dashboard</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
+<app-navbar></app-navbar>
 <body>
-    <div class="dashboard-container">
-        <header class="header">
-            <div class="logo">
-                <h1>🚗❗ Picha Lavado</h1>
+    <header>
+        <p class="slogan">¡Tu vehículo merece lo mejor!</p>
+    </header>
+
+    <div class="container">
+        <section class="hero">
+            <h2>El mejor lavadero de la ciudad</h2>
+            <p>Ofrecemos los mejores servicios de lavado y detallado para tu vehículo, con técnicos profesionales y
+                productos de alta calidad.</p>
+        </section>
+
+        <section class="cards-container">
+            <div class="card">
+                <div class="card-image" style="background-image: url('https://as1.ftcdn.net/v2/jpg/10/05/52/96/1000_F_1005529609_5R5RnogVdtM7Wnjv1EG96CuCCjExWsQi.jpg')"></div>
+                <div class="card-content">
+                    <h3>Registra tu Vehículo</h3>
+                    <p>Regístrate en nuestro sistema para acceder a descuentos especiales, seguimiento de servicios y
+                        promociones exclusivas.</p>
+                    <a href="/register-cars" class="btn">Registrar Ahora</a>
+                </div>
             </div>
-            <nav class="user-menu">
-                <div class="user-greeting">
-                    <span class="welcome-text">Bienvenido, </span>
-                    <span class="user-name">{{ userName }}</span>
-                </div>
-                <button class="logout-btn" (click)="logout()">
-                    <i class="icon-logout"></i>
-                    Cerrar Sesión
-                </button>
-            </nav>
-        </header>
 
-        <main class="main-content">
-            <section class="quick-actions">
-                <div class="action-card">
-                    <h2>Nuevo Servicio</h2>
-                    <button class="action-btn" [routerLink]="['/register-cars']">Iniciar Lavado</button>
+            <div class="card">
+                <div class="card-image" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3qJr83Yyb9xcoYPaC_m74y2f0NXMWZ6YqpA&s')"></div>
+                <div class="card-content">
+                    <h3>Nuestros Servicios</h3>
+                    <p>Descubre todos nuestros servicios de lavado, encerado, detallado interior, pulido y mucho más
+                        para mantener tu vehículo impecable.</p>
+                    <a href="/servicios" class="btn">Ver Servicios</a>
                 </div>
-                <div class="action-card">
-                    <h2>Historial</h2>
-                    <button class="action-btn">Ver Servicios</button>
-                </div>
-                <div class="action-card">
-                    <h2>Estadísticas</h2>
-                    <button class="action-btn">Ver Reportes</button>
-                </div>
-            </section>
+            </div>
 
-            <section class="recent-services">
-                <h2>Servicios Recientes</h2>
-                <table class="services-table">
-                    <thead>
-                        <tr>
-                            <th>Fecha</th>
-                            <th>Vehículo</th>
-                            <th>Tipo de Servicio</th>
-                            <th>Estado</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>26/03/2025</td>
-                            <td>Toyota Corolla</td>
-                            <td>Lavado Completo</td>
-                            <td><span class="status completed">Completado</span></td>
-                        </tr>
-                        <!-- More table rows can be added dynamically -->
-                    </tbody>
-                </table>
-            </section>
-        </main>
-
-        <footer class="footer">
-            <p>&copy; 2025 MiLavadero. Todos los derechos reservados.</p>
-        </footer>
+            <div class="card">
+                <div class="card-image" style="background-image: url('https://www.shutterstock.com/image-vector/car-accident-disappointed-man-panic-600nw-2087189635.jpg')"></div>
+                <div class="card-content">
+                    <h3>Estado del Vehículo</h3>
+                    <p>Consulta el estado actual de tu vehículo: verifica si ya ha sido lavado, en qué etapa del proceso
+                        se encuentra o cuándo estará listo para recoger.</p>
+                    <a href="#" class="btn">Verificar Estado</a>
+                </div>
+            </div>
+        </section>
     </div>
+
+    <footer>
+        <div class="footer-content">
+            <p>© 2025 AutoSpa - Todos los derechos reservados</p>
+            <p>Dirección: Av. Principal 123, Ciudad</p>
+            <p>Teléfono: (123) 456-7890</p>
+        </div>
+    </footer>
 </body>
+
 </html>

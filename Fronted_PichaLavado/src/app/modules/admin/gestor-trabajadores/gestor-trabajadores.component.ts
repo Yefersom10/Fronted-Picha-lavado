@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AutosService } from '../../../service/autos.service';
@@ -14,12 +14,13 @@ import { Router } from '@angular/router';
   templateUrl: './gestor-trabajadores.component.html',
   styleUrls: ['./gestor-trabajadores.component.css'],
 })
-export class GestorTrabajadoresComponent {
+export class GestorTrabajadoresComponent implements OnInit {
   activeTab: string = 'users';
 
   searchTermUser: string = '';
   usuarios: any[] = [];
   autos: any[] = [];
+  searchTermServicio: string = '';
   servicios: any[] = [];
   reservas: any[] = [];
 
@@ -34,7 +35,6 @@ export class GestorTrabajadoresComponent {
 
   newReserva: any = {};
   editingReserva: any = null;
-  
 
   constructor(
     private usersService: UsersService,
@@ -42,7 +42,9 @@ export class GestorTrabajadoresComponent {
     private servicioService: ServicioService,
     private reservaService: ReservaService,
     private router: Router,
-  ) {
+  ) {}
+
+  ngOnInit(): void {
     this.loadAll();
   }
 
@@ -59,8 +61,12 @@ export class GestorTrabajadoresComponent {
 
   loadAll() {
     this.usersService.getAll().subscribe(data => {
-      console.log('Usuarios cargados:', data); // 👈 para verificar en consola
+      console.log('Usuarios cargados:', data);
       this.usuarios = data;
+    });
+
+    this.servicioService.getAll().subscribe(data => {
+      this.servicios = data;
     });
   }
 
@@ -106,10 +112,13 @@ export class GestorTrabajadoresComponent {
   }
 
   saveEditAuto() {
-    this.autosService.updateAuto(this.editingAuto).subscribe(updated => {
-      const index = this.autos.findIndex(a => a.id === updated.id);
-      this.autos[index] = updated;
-      this.editingAuto = null;
+    this.autosService.updateAuto(this.editingAuto.id, this.editingAuto).subscribe({
+      next: res => {
+        console.log('Auto actualizado con éxito', res);
+      },
+      error: err => {
+        console.error('Error al actualizar el auto', err);
+      }
     });
   }
 
@@ -124,6 +133,12 @@ export class GestorTrabajadoresComponent {
   }
 
   // SERVICIOS
+  get filteredServicios() {
+    return this.servicios.filter(s =>
+      s.nombre?.toLowerCase().includes(this.searchTermServicio.toLowerCase())
+    );
+  }
+
   addServicio() {
     this.servicioService.create(this.newServicio).subscribe(serv => {
       this.servicios.push(serv);
@@ -182,10 +197,9 @@ export class GestorTrabajadoresComponent {
       this.reservas = this.reservas.filter(r => r.id !== id);
     });
   }
-  
 
   logout() {
-    localStorage.removeItem('userName'); // Eliminamos el nombre del usuario
-    this.router.navigate(['/login']); // Redirigimos a la página de login
+    localStorage.removeItem('userName');
+    this.router.navigate(['/login']);
   }
 }

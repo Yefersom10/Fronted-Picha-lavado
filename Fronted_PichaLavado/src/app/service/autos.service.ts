@@ -4,24 +4,27 @@ import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AutosService {
-  private apiUrl = 'http://localhost:8080/cars';
+  private apiUrl = 'http://localhost:8082/api/autos';
 
   constructor(private http: HttpClient) {}
 
   getAutos(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl);
+    return this.http.get<any[]>(`${this.apiUrl}/list`, { withCredentials: true });
   }
 
   addAuto(auto: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl, auto);
+    return this.http.post<any>(`${this.apiUrl}/add`, auto, { withCredentials: true });
+  }
+
+  updateAuto(id: number, auto: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/${id}`, auto, { withCredentials: true });
   }
 
   deleteAuto(id: number): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/${id}`);
+    return this.http.delete<any>(`${this.apiUrl}/${id}`, { withCredentials: true });
   }
 
-  // Puedes agregar también un update si lo usas
-  updateAuto(auto: any): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/${auto.id}`, auto);
+  getAutoById(id: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${id}`, { withCredentials: true });
   }
 }

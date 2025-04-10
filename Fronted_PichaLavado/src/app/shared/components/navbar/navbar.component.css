@@ -1,0 +1,126 @@
+/* Estilos para el Navbar */
+.navbar {
+    background-color: #000000; /* Fondo negro sólido */
+    height: 64px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 0 1rem;
+    border-bottom: 1px solid #e6e6e6;
+}
+
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1300px;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.navbar-logo {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.navbar-logo .exclamation {
+    color: #e60000; /* Color rojo para el signo de exclamación */
+    margin-right: 8px;
+    font-weight: bold;
+}
+
+.navbar-logo a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.navbar-menu {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-item {
+    height: 64px;
+    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.navbar-link {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.navbar-link:hover {
+    color: #e60000;
+}
+
+.navbar-btn {
+    margin-left: 1rem;
+}
+
+.navbar-button {
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    background: transparent;
+    color: #ffffff;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+}
+
+.navbar-button:hover {
+    color: #e60000;
+}
+
+.navbar-toggle {
+    display: none;
+}
+
+/* Estilos responsive */
+@media screen and (max-width: 960px) {
+    .navbar-menu {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        position: absolute;
+        top: 64px;
+        left: 0;
+        background: #000000;
+        padding: 1rem 0;
+    }
+
+    .navbar-menu.active {
+        display: flex;
+    }
+
+    .navbar-item {
+        width: 100%;
+        height: 50px;
+        padding: 0 2rem;
+    }
+
+    .navbar-toggle {
+        display: block;
+        cursor: pointer;
+        color: #ffffff;
+        font-size: 1.5rem;
+    }
+}

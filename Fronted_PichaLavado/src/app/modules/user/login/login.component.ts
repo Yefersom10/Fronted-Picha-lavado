@@ -15,7 +15,6 @@ export class LoginComponent {
 
   private apiUrl = 'http://localhost:8082/auth/login';
 
-
   login = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', Validators.required)
@@ -23,44 +22,44 @@ export class LoginComponent {
 
   notification: { message: string; type: 'success' | 'error' } | null = null;
   isLoading = false;
+  passwordVisible = false;
 
   constructor(private httpClient: HttpClient, private router: Router) { }
 
-
   public async handleSubmit() {
     this.login.markAllAsTouched();
-  
+
     if (this.login.invalid) {
       this.showNotification('Por favor, complete todos los campos correctamente.', 'error');
       return;
     }
-  
+
     this.isLoading = true;
     try {
       const loginData = {
         email: this.login.get('email')?.value?.trim(),
         password: this.login.get('password')?.value
       };
-  
+
       this.httpClient.post(this.apiUrl, loginData, { observe: 'response', withCredentials: true })
         .subscribe({
           next: (res) => {
             if (res.status === 200) {
-              // Hacer otra llamada para obtener los datos actuales de sesión
               this.httpClient.get('http://localhost:8082/auth/current', { withCredentials: true })
                 .subscribe({
                   next: (userData: any) => {
                     console.log('Usuario actual desde sesión:', userData);
-  
+
+                    const userId = userData.id;
                     const userName = userData.name;
                     const userRole = userData.role;
-  
-                    localStorage.setItem('userName', userName);
-                    localStorage.setItem('userRole', userRole);
-  
+
+                    sessionStorage.setItem('userId', userId);
+                    sessionStorage.setItem('userName', userName);
+                    sessionStorage.setItem('userRole', userRole);
                     this.showNotification(`¡Bienvenido, ${userName}!`, 'success');
                     this.login.reset();
-  
+
                     setTimeout(() => {
                       switch (userRole) {
                         case 'CLIENTE':
@@ -91,7 +90,7 @@ export class LoginComponent {
             }
           }
         });
-  
+
     } catch (error) {
       console.error('Error en el proceso de login:', error);
       this.showNotification('Ocurrió un error inesperado.', 'error');
@@ -99,9 +98,6 @@ export class LoginComponent {
       this.isLoading = false;
     }
   }
-  
-  
-  
 
   showNotification(message: string, type: 'success' | 'error') {
     this.notification = { message, type };
@@ -112,7 +108,6 @@ export class LoginComponent {
     }, 1000);
   }
 
-
   togglePasswordVisibility() {
     const passwordInput = document.getElementById('passwordInput') as HTMLInputElement;
     if (passwordInput) {
@@ -120,6 +115,4 @@ export class LoginComponent {
     }
   }
 
-  passwordVisible = false;
-  
 }

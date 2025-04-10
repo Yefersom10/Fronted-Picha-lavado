@@ -1,63 +1,33 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de Vehículo</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div class="form-container">
-        <h1>Registro de Vehículo</h1>
-        <form id="vehicleForm" onsubmit="return validateForm()">
-            <div class="form-group">
-                <label for="marca" class="required">Marca</label>
-                <input type="text" id="marca" name="marca" required>
-                <div class="error" id="marca-error">Por favor ingrese la marca del vehículo</div>
-            </div>
-            
-            <div class="form-group">
-                <label for="modelo" class="required">Modelo</label>
-                <input type="text" id="modelo" name="modelo" required>
-                <div class="error" id="modelo-error">Por favor ingrese el modelo del vehículo</div>
-            </div>
-            
-            <div class="form-group">
-                <label for="anio" class="required">Año</label>
-                <input type="number" id="anio" name="anio" min="1900" max="2025" required>
-                <div class="error" id="anio-error">Por favor ingrese un año válido (1900-2025)</div>
-            </div>
-            
-            <div class="form-group">
-                <label for="placa" class="required">Placa</label>
-                <input type="text" id="placa" name="placa" required>
-                <div class="error" id="placa-error">Por favor ingrese la placa del vehículo</div>
-            </div>
-            
-            <div class="form-group">
-                <label for="color" class="required">Color</label>
-                <input type="text" id="color" name="color" required>
-                <div class="error" id="color-error">Por favor ingrese el color del vehículo</div>
-            </div>
-            
-            <div class="form-group">
-                <label for="tipoDeVehiculo" class="required">Tipo de Vehículo</label>
-                <select id="tipoDeVehiculo" name="tipoDeVehiculo" required>
-                    <option value="">Seleccione un tipo</option>
-                    <option value="SEDAN">Sedán</option>
-                    <option value="SUV">SUV</option>
-                    <option value="HATCHBACK">Hatchback</option>
-                    <option value="PICKUP">Pickup</option>
-                    <option value="COUPE">Coupé</option>
-                    <option value="MINIVAN">Minivan</option>
-                    <option value="CONVERTIBLE">Convertible</option>
-                    <option value="OTRO">Otro</option>
-                </select>
-                <div class="error" id="tipo-error">Por favor seleccione un tipo de vehículo</div>
-            </div>
-            
-            <button type="submit" class="submit-btn">Registrar Vehículo</button>
-        </form>
-    </div>
-</body>
+<app-navbar></app-navbar>
+<div class="form-container">
+    <h2>Registro de Auto</h2>
+    <form [formGroup]="carForm" (ngSubmit)="onSubmit()">
+      
+      <label>Marca:</label>
+      <input formControlName="marca" type="text" />
+  
+      <label>Modelo:</label>
+      <input formControlName="modelo" type="text" />
+  
+      <label>Año:</label>
+      <input formControlName="anio" type="number" />
+  
+      <label>Placa:</label>
+      <input formControlName="placa" type="text" />
+  
+      <label>Color:</label>
+      <input formControlName="color" type="text" />
+  
+      <label>Tipo de Vehículo:</label>
+      <select formControlName="tipoDeVehiculo">
+        <option value="" disabled selected>Seleccione una opción</option>
+        <option *ngFor="let tipo of tiposDeVehiculo" [value]="tipo">{{ tipo }}</option>
+      </select>
+  
+      <button type="submit" [disabled]="carForm.invalid">Registrar</button>
+    </form>
+  </div>
+
 </html>

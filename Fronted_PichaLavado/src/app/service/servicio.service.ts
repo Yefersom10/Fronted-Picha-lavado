@@ -4,16 +4,17 @@ import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class ServicioService {
-  private apiUrl = 'http://localhost:8080/api/servicios';
+
+   private apiUrl = 'http://localhost:8082/api/servicios';
 
   constructor(private http: HttpClient) {}
 
   getAll(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl);
+    return this.http.get<any[]>(`${this.apiUrl}/list/servicios`);
   }
 
   create(servicio: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl, servicio);
+    return this.http.post<any>(`${this.apiUrl}/add/servicios`, servicio, { withCredentials: true });
   }
 
   update(servicio: any): Observable<any> {
@@ -21,6 +22,6 @@ export class ServicioService {
   }
 
   delete(id: number): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/${id}`);
+    return this.http.delete(`${this.apiUrl}/${id}`);
   }
 }
