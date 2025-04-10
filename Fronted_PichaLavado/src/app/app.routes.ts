@@ -7,11 +7,7 @@ import { ForgotPasswordComponent } from './modules/user/pages/forgot-password/fo
 import { RegisterCarsComponent } from './modules/user/pages/register-cars/register-cars.component';
 import { AutosComponent } from './modules/admin/autos/autos.component';
 import { GestorTrabajadoresComponent } from './modules/admin/gestor-trabajadores/gestor-trabajadores.component';
-<<<<<<< HEAD
 import { ServiciosComponent } from './modules/user/pages/servicios/servicios.component';
-=======
-import { VehicleListComponent } from './vehicle-list/vehicle-list.component';
->>>>>>> bba4a061c48b4e7c7a1ff12d579db7a51f70f9f8
 
 
 export const routes: Routes = [
@@ -22,12 +18,7 @@ export const routes: Routes = [
     { path: 'forgot-password', component: ForgotPasswordComponent },
     { path: 'register-cars', component: RegisterCarsComponent }, 
     { path: 'autos/list', component: AutosComponent }, 
-<<<<<<< HEAD
     { path: 'qw/gestor-trabajadores', component: GestorTrabajadoresComponent }, 
     { path: 'servicios', component: ServiciosComponent}, 
-=======
-    { path: 'qw/gestor-trabajadores', component: GestorTrabajadoresComponent },
-    {path: "vehicle-list", component: VehicleListComponent} ,
->>>>>>> bba4a061c48b4e7c7a1ff12d579db7a51f70f9f8
     { path: '**', redirectTo: '' } 
 ];

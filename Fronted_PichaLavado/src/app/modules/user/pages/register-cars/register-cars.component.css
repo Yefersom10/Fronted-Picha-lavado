@@ -1,89 +1,69 @@
-.form-container {
-    max-width: 500px;
-    margin: 30px auto;
-    padding: 2rem;
-    border: 1px solid #ccc;
-    border-radius: 16px;
+.register-car-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 30px;
     background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
   }
   
   label {
+    font-weight: bold;
+    margin-bottom: 8px;
     display: block;
-    margin-bottom: 1rem;
   }
   
-  input {
+  .form-control {
     width: 100%;
-    padding: 0.5rem;
-    margin-top: 4px;
-    box-sizing: border-box;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+  }
+  
+  .form-control:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  .text-danger {
+    font-size: 12px;
+    color: red;
+    margin-top: 5px;
   }
   
   button {
-    padding: 0.7rem 1.2rem;
-    background-color: #1976d2;
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #007bff;
     color: white;
     border: none;
-    border-radius: 8px;
-    cursor: pointer;
-<<<<<<< HEAD
+    transition: background-color 0.3s ease;
   }
   
-  button:disabled {
+  button[disabled] {
     background-color: #ccc;
+    cursor: not-allowed;
   }
   
-=======
-    font-size: 16px;
-    width: 100%;
-    transition: background-color 0.3s;
-}
-
-.submit-btn:hover {
-    background-color: #cc0000;
-}
-
-.error {
-    color: #ff0000; 
-    font-size: 14px;
-    margin-top: 5px;
-    display: none;
-}
-
-/* Estilo para el select */
-select {
-    background-color: white;
-    cursor: pointer;
-}
-
-/* Agregar algo de color azul a elementos interactivos */
-input:checked, 
-input[type="radio"]:checked {
-    border-color: #0000ff; /* Azul */
-}
-
-/* Estilos adicionales basados en colores corporativos */
-::selection {
-    background-color: #0000ff;
-    color: white;
-}
-
-@media (max-width: 480px) {
-    body {
-        padding: 10px;
-    }
-    
-    .form-container {
-        padding: 15px;
-    }
-}
-.alert-error {
-    background-color: #f8d7da; /* Color de fondo rojo claro */
-    color: #721c24; /* Color del texto rojo oscuro */
-    padding: 10px;
-    border: 1px solid #f5c6cb; /* Borde en tono rojo claro */
-    border-radius: 5px;
-    margin-bottom: 15px;
-    font-weight: bold;
-}
->>>>>>> bba4a061c48b4e7c7a1ff12d579db7a51f70f9f8
+  button:hover:not([disabled]) {
+    background-color: #0056b3;
+  }
+  
+  .alert-danger {
+    margin-bottom: 20px;
+  }
