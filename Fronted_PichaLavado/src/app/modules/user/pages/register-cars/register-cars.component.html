@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="es">
 <app-navbar></app-navbar>
@@ -31,3 +32,77 @@
   </div>
 
 </html>
+=======
+<div class="register-car-container">
+  <h2>Registro de Vehículo</h2>
+
+  <!-- Mensaje de error si no hay sesión activa -->
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <form [formGroup]="carForm" (ngSubmit)="onSubmit()" novalidate>
+    <!-- Marca -->
+    <div class="form-group">
+      <label for="marca">Marca:</label>
+      <input type="text" id="marca" class="form-control" formControlName="marca">
+      <div class="text-danger" *ngIf="carForm.get('marca')?.touched && carForm.get('marca')?.invalid">
+        La marca es obligatoria.
+      </div>
+    </div>
+
+    <!-- Modelo -->
+    <div class="form-group">
+      <label for="modelo">Modelo:</label>
+      <input type="text" id="modelo" class="form-control" formControlName="modelo">
+      <div class="text-danger" *ngIf="carForm.get('modelo')?.touched && carForm.get('modelo')?.invalid">
+        El modelo es obligatorio.
+      </div>
+    </div>
+
+    <!-- Año -->
+    <div class="form-group">
+      <label for="anio">Año:</label>
+      <input type="number" id="anio" class="form-control" formControlName="anio">
+      <div class="text-danger" *ngIf="carForm.get('anio')?.touched && carForm.get('anio')?.invalid">
+        Ingrese un año válido entre 1900 y {{ maxYear }}.
+      </div>
+    </div>
+
+    <!-- Placa -->
+    <div class="form-group">
+      <label for="placa">Placa:</label>
+      <input type="text" id="placa" class="form-control" formControlName="placa">
+      <div class="text-danger" *ngIf="carForm.get('placa')?.touched && carForm.get('placa')?.invalid">
+        Ingrese una placa válida (3 a 8 caracteres, letras y números en mayúsculas).
+      </div>
+    </div>
+
+    <!-- Color -->
+    <div class="form-group">
+      <label for="color">Color:</label>
+      <input type="text" id="color" class="form-control" formControlName="color">
+      <div class="text-danger" *ngIf="carForm.get('color')?.touched && carForm.get('color')?.invalid">
+        El color es obligatorio.
+      </div>
+    </div>
+
+    <!-- Tipo de Vehículo -->
+    <div class="form-group">
+      <label for="tipoDeVehiculo">Tipo de Vehículo:</label>
+      <select id="tipoDeVehiculo" class="form-control" formControlName="tipoDeVehiculo">
+        <option value="" disabled selected>Seleccione un tipo</option>
+        <option *ngFor="let tipo of tiposDeVehiculo" [value]="tipo">{{ tipo }}</option>
+      </select>
+      <div class="text-danger" *ngIf="carForm.get('tipoDeVehiculo')?.touched && carForm.get('tipoDeVehiculo')?.invalid">
+        Debe seleccionar un tipo de vehículo.
+      </div>
+    </div>
+
+    <!-- Botón de envío -->
+    <button type="submit" class="btn btn-primary" [disabled]="isSubmitting">
+      {{ isSubmitting ? 'Registrando...' : 'Registrar Vehículo' }}
+    </button>
+  </form>
+</div>
+>>>>>>> bba4a061c48b4e7c7a1ff12d579db7a51f70f9f8
