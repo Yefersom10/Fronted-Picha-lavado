@@ -1,37 +1,14 @@
-<div class="container mt-4">
-  <h2>Mis Vehículos</h2>
-
-  <div *ngIf="loading">Cargando vehículos...</div>
-  <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
-
-  <table *ngIf="vehicles.length > 0" class="table table-striped mt-3">
-    <thead>
-      <tr>
-        <th>Marca</th>
-        <th>Modelo</th>
-        <th>Año</th>
-        <th>Placa</th>
-        <th>Color</th>
-        <th>Tipo</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let vehicle of vehicles">
-        <td>{{ vehicle.marca }}</td>
-        <td>{{ vehicle.modelo }}</td>
-        <td>{{ vehicle.anio }}</td>
-        <td>{{ vehicle.placa }}</td>
-        <td>{{ vehicle.color }}</td>
-        <td>{{ vehicle.tipoDeVehiculo }}</td>
-        <td>
-          <button class="btn btn-danger btn-sm" (click)="deleteVehicle(vehicle.id)">Eliminar</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-
-  <div *ngIf="!loading && vehicles.length === 0">
-    No tienes vehículos registrados.
-  </div>
+<div *ngIf="errorMessage" class="alert alert-danger">
+  {{ errorMessage }}
 </div>
+
+<ul *ngIf="!loading; else loading">
+  <li *ngFor="let v of vehicles">
+    <strong>{{ v.marca }} {{ v.modelo }}</strong> - {{ v.placa }}
+    <button (click)="deleteVehicle(v.id)" class="btn btn-danger">🗑 Eliminar</button>
+  </li>
+</ul>
+
+<ng-template #loading>
+  <p>Cargando vehículos...</p>
+</ng-template>

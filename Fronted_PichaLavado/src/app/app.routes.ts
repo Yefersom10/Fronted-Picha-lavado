@@ -20,5 +20,9 @@ export const routes: Routes = [
     { path: 'autos/list', component: AutosComponent }, 
     { path: 'qw/gestor-trabajadores', component: GestorTrabajadoresComponent }, 
     { path: 'servicios', component: ServiciosComponent}, 
+    {path : 'autos', component: AutosComponent},
+    {path : 'gestor-trabajadores', component: GestorTrabajadoresComponent},
+    {path : 'servicios', component: ServiciosComponent},
+    {path : 'vehicle-list', component: PaginaPricipalComponent},
     { path: '**', redirectTo: '' } 
 ];

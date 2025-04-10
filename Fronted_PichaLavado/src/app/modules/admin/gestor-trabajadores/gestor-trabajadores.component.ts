@@ -100,7 +100,12 @@ export class GestorTrabajadoresComponent implements OnInit {
   }
 
   // AUTOS
-  addAuto() {
+  getPropietarioNombre(userId: number): string {
+    const user = this.usuarios.find(u => u.id === userId);
+    return user ? user.name : 'Desconocido';
+  }
+  
+  addAutos() {
     this.autosService.addAuto(this.newAuto).subscribe(auto => {
       this.autos.push(auto);
       this.newAuto = {};

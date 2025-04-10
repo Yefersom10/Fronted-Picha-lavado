@@ -55,15 +55,7 @@
     </table>
 
 
-    <h3>Agregar Usuario</h3>
-    <form (ngSubmit)="addUser()">
-        <input [(ngModel)]="newUser.nombre" name="nombre" placeholder="Nombre" required />
-        <input [(ngModel)]="newUser.apellido" name="apellido" placeholder="Apellido" required />
-        <input [(ngModel)]="newUser.email" name="email" placeholder="Email" required />
-        <input [(ngModel)]="newUser.telefono" name="telefono" placeholder="Teléfono" />
-        <input [(ngModel)]="newUser.rol" name="rol" placeholder="Rol" />
-        <button type="submit">Agregar</button>
-    </form>
+  
 </div>
 
 <!-- === AUTOS === -->
@@ -74,10 +66,13 @@
     <table>
         <thead>
             <tr>
-                <th>Placa</th>
                 <th>Marca</th>
                 <th>Modelo</th>
                 <th>Año</th>
+                <th>Color</th>
+                <th>Placa</th>
+                <th>Color</th>
+                <th>tipo De Vehiculo</th>
                 <th>Propietario</th>
                 <th>Acciones</th>
             </tr>
@@ -85,10 +80,12 @@
         <tbody>
             <tr *ngFor="let auto of filteredAutos">
                 <ng-container *ngIf="editingAuto?.id === auto.id; else showAuto">
-                    <td><input [(ngModel)]="editingAuto.placa" /></td>
                     <td><input [(ngModel)]="editingAuto.marca" /></td>
                     <td><input [(ngModel)]="editingAuto.modelo" /></td>
                     <td><input [(ngModel)]="editingAuto.anio" /></td>
+                    <td><input [(ngModel)]="editingAuto.color" /></td>
+                    <td><input [(ngModel)]="editingAuto.placa" /></td>
+                    <td><input [(ngModel)]="editingAuto.tipoDeVehiculo" /></td>
                     <td><input [(ngModel)]="editingAuto.propietario" /></td>
                     <td>
                         <button (click)="saveEditAuto()">Guardar</button>
@@ -96,11 +93,13 @@
                     </td>
                 </ng-container>
                 <ng-template #showAuto>
-                    <td>{{ auto.placa }}</td>
                     <td>{{ auto.marca }}</td>
                     <td>{{ auto.modelo }}</td>
                     <td>{{ auto.anio }}</td>
-                    <td>{{ auto.propietario }}</td>
+                    <td>{{ auto.color }}</td>
+                    <td>{{ auto.placa }}</td>
+                    <td>{{ auto.tipoDeVehiculo }}</td>
+                    <td>{{ getPropietarioNombre(auto.userId) }}</td>
                     <td>
                         <button (click)="startEditAuto(auto)">Editar</button>
                         <button (click)="deleteAuto(auto.id)">Eliminar</button>
@@ -111,11 +110,13 @@
     </table>
 
     <h3>Agregar Auto</h3>
-    <form (ngSubmit)="addAuto()">
-        <input [(ngModel)]="newAuto.placa" name="placa" placeholder="Placa" required />
+    <form (ngSubmit)="addAutos()">
         <input [(ngModel)]="newAuto.marca" name="marca" placeholder="Marca" required />
         <input [(ngModel)]="newAuto.modelo" name="modelo" placeholder="Modelo" required />
-        <input [(ngModel)]="newAuto.anio" name="anio" placeholder="Año" />
+        <input [(ngModel)]="newAuto.anio" name="anio" placeholder="Año" required />
+        <input [(ngModel)]="newAuto.color" name="color" placeholder="Color" required />
+        <input [(ngModel)]="newAuto.placa" name="placa" placeholder="Placa" required />
+        <input [(ngModel)]="newAuto.tipoDeVehiculo" name="tipoDeVehiculo" placeholder="Tipo de Vehiculo" />
         <input [(ngModel)]="newAuto.propietario" name="propietario" placeholder="Propietario" />
         <button type="submit">Agregar</button>
     </form>
