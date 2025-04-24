@@ -19,12 +19,10 @@ export class ReservaComponent {
   servicios: any[] = [];
 
   reserva: any = {
-    usuarioId: 0,
     autoId: '',
     servicioId: '',
     fecha: '',
-    hora: '',
-    comentario: ''
+    hora: ''
   };
 
   constructor(
@@ -36,34 +34,24 @@ export class ReservaComponent {
 
   ngOnInit(): void {
     const userId = sessionStorage.getItem('userId');
-
     if (!userId) {
       this.router.navigate(['/login']);
       return;
     }
-
-    this.reserva.usuarioId = parseInt(userId, 10);
-
     this.cargarAutos();
     this.cargarServicios();
   }
 
   cargarAutos(): void {
     this.autoService.getAutos().subscribe({
-      next: (data) => {
-        console.log('🔍 Autos recibidos:', data);
-        this.autos = data; // No filtrar, el backend ya devuelve los autos del usuario
-      },
+      next: (data) => this.autos = data,
       error: (err) => console.error('Error cargando autos:', err)
     });
   }
 
   cargarServicios(): void {
     this.servicioService.getAll().subscribe({
-      next: (data) => {
-        console.log('🔧 Servicios cargados:', data);
-        this.servicios = data;
-      },
+      next: (data) => this.servicios = data,
       error: (err) => console.error('Error cargando servicios:', err)
     });
   }
@@ -74,11 +62,26 @@ export class ReservaComponent {
       return;
     }
 
-    this.reservaService.create(this.reserva).subscribe({
-      next: () => alert('✅ Reserva creada con éxito.'),
+    const fechaHora = `${this.reserva.fecha}T${this.reserva.hora}`;
+
+    const reservaPayload = {
+      auto: { id: this.reserva.autoId },
+      servicio: { id: this.reserva.servicioId },
+      fechaReserva: `${this.reserva.fecha}T00:00:00`,
+      horaReserva: fechaHora,
+      estado: 'PENDIENTE'
+    };
+
+    console.log('🛰️ Enviando payload a backend:', reservaPayload);
+
+    this.reservaService.create(reservaPayload).subscribe({
+      next: () => {
+        alert('✅ Reserva creada con éxito.');
+        this.router.navigate(['/pagina-principal']);
+      },
       error: (err) => {
         console.error('❌ Error al crear reserva:', err);
-        alert('Error al crear reserva: ' + err.message);
+        alert('Error al crear reserva: ' + err.error.message);
       }
     });
   }
