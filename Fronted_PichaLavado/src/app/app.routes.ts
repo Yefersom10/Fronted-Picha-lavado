@@ -8,6 +8,7 @@ import { RegisterCarsComponent } from './modules/user/pages/register-cars/regist
 import { AutosComponent } from './modules/admin/autos/autos.component';
 import { GestorTrabajadoresComponent } from './modules/admin/gestor-trabajadores/gestor-trabajadores.component';
 import { ServiciosComponent } from './modules/user/pages/servicios/servicios.component';
+import { VehicleListComponent } from './vehicle-list/vehicle-list.component';
 
 
 export const routes: Routes = [
@@ -23,6 +24,6 @@ export const routes: Routes = [
     {path : 'autos', component: AutosComponent},
     {path : 'gestor-trabajadores', component: GestorTrabajadoresComponent},
     {path : 'servicios', component: ServiciosComponent},
-    {path : 'vehicle-list', component: AutosComponent},
+    {path : 'vehicle-list', component: VehicleListComponent},
     { path: '**', redirectTo: '' } 
 ];

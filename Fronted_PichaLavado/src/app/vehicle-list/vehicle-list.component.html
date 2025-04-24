@@ -1,16 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+  <app-navbar></app-navbar>
 
-<app-navbar></app-navbar>
-<div *ngIf="errorMessage" class="alert alert-danger">
-  {{ errorMessage }}
+<div class="container">
+  <h2>Lista de Vehículos</h2>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <ul *ngIf="!loading && vehicles.length > 0; else sinVehiculos">
+    <li *ngFor="let v of vehicles">
+      <strong>{{ v.marca }} {{ v.modelo }}</strong><br>
+      Año: {{ v.anio }}<br>
+      Placa: {{ v.placa }}<br>
+      Color: {{ v.color }}<br>
+      Tipo: {{ v.tipoDeVehiculo }}<br>
+      <button (click)="deleteVehicle(v.id)" class="btn btn-danger mt-2">🗑 Eliminar</button>
+      <hr>
+    </li>
+  </ul>
+
+  <ng-template #sinVehiculos>
+    <p *ngIf="!loading">No hay vehículos disponibles.</p>
+    <ng-template #loading>
+      <p>Cargando vehículos...</p>
+    </ng-template>
+  </ng-template>
 </div>
-
-<ul *ngIf="!loading; else loading">
-  <li *ngFor="let v of vehicles">
-    <strong>{{ v.marca }} {{ v.modelo }}</strong> - {{ v.placa }}
-    <button (click)="deleteVehicle(v.id)" class="btn btn-danger">🗑 Eliminar</button>
-  </li>
-</ul>
-
-<ng-template #loading>
-  <p>Cargando vehículos...</p>
-</ng-template>
