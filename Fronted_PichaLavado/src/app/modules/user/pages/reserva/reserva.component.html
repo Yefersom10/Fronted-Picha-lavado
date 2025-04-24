@@ -1,0 +1,36 @@
+<app-navbar></app-navbar>
+<h2>Reservar un servicio de autolavado</h2>
+
+<form (ngSubmit)="crearReserva()" #form="ngForm">
+  <label>Auto:</label>
+  <select [(ngModel)]="reserva.autoId" name="autoId" required>
+    <option value="" disabled selected>Selecciona un auto</option>
+    <option *ngFor="let auto of autos" [value]="auto.id">
+      {{ auto.marca }} - {{ auto.modelo }} - {{ auto.placa }}
+    </option>
+  </select>
+
+  <br><br>
+
+  <label>Servicio:</label>
+  <select [(ngModel)]="reserva.servicioId" name="servicioId" required>
+    <option value="" disabled selected>Selecciona un servicio</option>
+    <option *ngFor="let servicio of servicios" [value]="servicio.id">
+      {{ servicio.nombre }}
+    </option>
+  </select>
+
+  <br><br>
+
+  <label>Fecha:</label>
+  <input type="date" [(ngModel)]="reserva.fecha" name="fecha" required>
+
+  <br><br>
+
+  <label>Hora:</label>
+  <input type="time" [(ngModel)]="reserva.hora" name="hora" required>
+
+  <br><br>
+
+  <button type="submit">Reservar</button>
+</form>

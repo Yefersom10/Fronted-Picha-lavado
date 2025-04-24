@@ -9,6 +9,7 @@ import { AutosComponent } from './modules/admin/autos/autos.component';
 import { GestorTrabajadoresComponent } from './modules/admin/gestor-trabajadores/gestor-trabajadores.component';
 import { ServiciosComponent } from './modules/user/pages/servicios/servicios.component';
 import { VehicleListComponent } from './vehicle-list/vehicle-list.component';
+import { ReservaComponent } from './modules/user/pages/reserva/reserva.component';
 
 
 export const routes: Routes = [
@@ -25,5 +26,6 @@ export const routes: Routes = [
     {path : 'gestor-trabajadores', component: GestorTrabajadoresComponent},
     {path : 'servicios', component: ServiciosComponent},
     {path : 'vehicle-list', component: VehicleListComponent},
+    {path : 'reservas', component: ReservaComponent},
     { path: '**', redirectTo: '' } 
 ];

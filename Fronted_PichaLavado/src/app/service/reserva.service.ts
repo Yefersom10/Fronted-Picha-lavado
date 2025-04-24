@@ -12,6 +12,10 @@ export class ReservaService {
     return this.http.get<any[]>(this.apiUrl);
   }
 
+  getByUsuario(usuarioId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/usuario/${usuarioId}`);
+  }
+
   create(reserva: any): Observable<any> {
     return this.http.post<any>(this.apiUrl, reserva);
   }

@@ -1,0 +1,15 @@
+<app-navbar></app-navbar>
+<div *ngIf="errorMessage" class="alert alert-danger">
+  {{ errorMessage }}
+</div>
+
+<ul *ngIf="!loading; else loading">
+  <li *ngFor="let v of vehicles">
+    <strong>{{ v.marca }} {{ v.modelo }}</strong> - {{ v.placa }}
+    <button (click)="deleteVehicle(v.id)" class="btn btn-danger">🗑 Eliminar</button>
+  </li>
+</ul>
+
+<ng-template #loading>
+  <p>Cargando vehículos...</p>
+</ng-template>

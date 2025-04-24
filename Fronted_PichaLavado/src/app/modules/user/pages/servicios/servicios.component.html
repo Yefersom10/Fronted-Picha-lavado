@@ -1,18 +1,17 @@
 <!DOCTYPE html>
-<html lang="es">
+
 <app-navbar></app-navbar>
 <div class="container">
-    <h2>Lista de Servicios</h2>
-    <ul *ngIf="servicios.length > 0; else noServicios">
-      <li *ngFor="let servicio of servicios">
-        <strong>{{ servicio.nombre }}</strong><br>
-        {{ servicio.descripcion }}<br>
-        <span>Precio: {{ servicio.precio | currency:'USD' }}</span>
-      </li>
-    </ul>
-  
-    <ng-template #noServicios>
-      <p>No hay servicios disponibles.</p>
-    </ng-template>
-  </div>
-  
+  <h2>Lista de Servicios</h2>
+  <ul *ngIf="servicios.length > 0; else noServicios">
+    <li *ngFor="let servicio of servicios">
+      <strong>{{ servicio.nombre }}</strong><br>
+      {{ servicio.descripcion }}<br>
+      <span>Precio: {{ servicio.precio | currency:'USD' }}</span>
+    </li>
+  </ul>
+
+  <ng-template #noServicios>
+    <p>No hay servicios disponibles.</p>
+  </ng-template>
+</div>
