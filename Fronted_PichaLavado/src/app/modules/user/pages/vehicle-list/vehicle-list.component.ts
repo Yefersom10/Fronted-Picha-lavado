@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { AutosService } from '../../../../service/autos.service';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
+import { AutosService } from '../../../../service/autos.service';
 import { NavbarComponent } from '../../../../shared/components/navbar/navbar.component';
 
 interface Auto {
@@ -15,11 +16,13 @@ interface Auto {
 
 @Component({
   selector: 'app-vehicle-list',
-  imports: [RouterLink,NavbarComponent],
+  standalone: true,
+  imports: [CommonModule, RouterLink,NavbarComponent],
   templateUrl: './vehicle-list.component.html',
   styleUrls: ['./vehicle-list.component.css']
 })
-export class VehicleListComponent implements OnInit {
+export class VehicleListComponent {
+
   vehicles: Auto[] = [];
   loading = false;
   errorMessage = '';
@@ -33,7 +36,7 @@ export class VehicleListComponent implements OnInit {
   loadVehicles(): void {
     this.loading = true;
     this.errorMessage = '';
-    
+
     this.autosService.getAutos().subscribe({
       next: (data) => {
         this.vehicles = data;
@@ -51,7 +54,7 @@ export class VehicleListComponent implements OnInit {
     if (confirm('¿Está seguro de eliminar este vehículo?')) {
       this.autosService.deleteAuto(id).subscribe({
         next: () => {
-          this.vehicles = this.vehicles.filter(vehicle => vehicle.id !== id); // Actualiza la lista localmente
+          this.vehicles = this.vehicles.filter(vehicle => vehicle.id !== id);
         },
         error: (error) => {
           console.error('Error al eliminar el vehículo', error);

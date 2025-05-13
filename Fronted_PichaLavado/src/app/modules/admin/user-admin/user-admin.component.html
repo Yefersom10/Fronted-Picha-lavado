@@ -1,0 +1,43 @@
+<app-navbar-admin></app-navbar-admin>
+<div>
+    <h2>Gestión de Usuarios</h2>
+    <input [(ngModel)]="searchTermUser" placeholder="Buscar usuario..." />
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Email</th>
+                <th>Teléfono</th>
+                <th>Rol</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of filteredUsers">
+                <ng-container *ngIf="editingUser?.id === user.id; else showUser">
+                    <td><input [(ngModel)]="editingUser.name" /></td>
+                    <td><input [(ngModel)]="editingUser.apellido" /></td>
+                    <td><input [(ngModel)]="editingUser.email" /></td>
+                    <td><input [(ngModel)]="editingUser.telefono" /></td>
+                    <td><input [(ngModel)]="editingUser.role" /></td>
+                    <td>
+                        <button (click)="saveEditUser()">Guardar</button>
+                        <button (click)="cancelEditUser()">Cancelar</button>
+                    </td>
+                </ng-container>
+                <ng-template #showUser>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.apellido }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.telefono }}</td>
+                    <td>{{ user.role }}</td>
+                    <td>
+                        <button (click)="startEditUser(user)">Editar</button>
+                        <button (click)="deleteUser(user.id)">Eliminar</button>
+                    </td>
+                </ng-template>
+            </tr>
+        </tbody>
+    </table>
+</div>

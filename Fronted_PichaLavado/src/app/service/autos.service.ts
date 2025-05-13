@@ -20,6 +20,7 @@ export class AutosService {
   getAutos(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/autos`, { withCredentials: true });
   }
+
   
    // Eliminar un auto
    deleteAuto(id: number): Observable<any> {

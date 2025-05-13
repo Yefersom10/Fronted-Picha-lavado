@@ -8,6 +8,10 @@
       <strong>{{ servicio.nombre }}</strong><br>
       {{ servicio.descripcion }}<br>
       <span>Precio: {{ servicio.precio | currency:'USD' }}</span>
+      <button class="reserva-btn" [routerLink]="['/reservas']" [queryParams]="{ servicioId: servicio.id }">
+        <span class="icon">📅</span>
+        <span class="text">Reservar este servicio</span>
+      </button>
     </li>
   </ul>
 

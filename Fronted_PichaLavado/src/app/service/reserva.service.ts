@@ -27,4 +27,8 @@ export class ReservaService {
   delete(id: number): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/${id}`);
   }
+  cambiarEstado(id: number, nuevoEstado: string): Observable<any> {
+  return this.http.put(`${this.apiUrl}/${id}`, nuevoEstado);
+  }
+
 }

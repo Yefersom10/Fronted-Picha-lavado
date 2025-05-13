@@ -1,0 +1,46 @@
+<app-navbar-admin></app-navbar-admin>
+<div class="container">
+    <h2>Gestión de Servicios</h2>
+    <input class="search-box" [(ngModel)]="searchTermServicio" placeholder="Buscar servicio..." />
+
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Precio</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let servicio of filteredServicios">
+                <ng-container *ngIf="editingServicio?.id === servicio.id; else showServicio">
+                    <td><input class="table-input" [(ngModel)]="editingServicio.nombre" /></td>
+                    <td><input class="table-input" [(ngModel)]="editingServicio.descripcion" /></td>
+                    <td><input class="table-input" type="number" [(ngModel)]="editingServicio.precio" /></td>
+                    <td>
+                        <button class="btn btn-success" (click)="saveEditServicio()">Guardar</button>
+                        <button class="btn btn-secondary" (click)="cancelEditServicio()">Cancelar</button>
+                    </td>
+                </ng-container>
+                <ng-template #showServicio>
+                    <td>{{ servicio.nombre }}</td>
+                    <td>{{ servicio.descripcion }}</td>
+                    <td class="price-cell">{{ servicio.precio | currency }}</td>
+                    <td>
+                        <button class="btn btn-primary" (click)="startEditServicio(servicio)">Editar</button>
+                        <button class="btn btn-danger" (click)="deleteServicio(servicio.id)">Eliminar</button>
+                    </td>
+                </ng-template>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Agregar Servicio</h3>
+    <form class="add-form" (ngSubmit)="addServicio()">
+        <input class="form-control" [(ngModel)]="newServicio.nombre" name="nombre" placeholder="Nombre" required />
+        <input class="form-control" [(ngModel)]="newServicio.descripcion" name="descripcion" placeholder="Descripción" />
+        <input class="form-control" [(ngModel)]="newServicio.precio" name="precio" placeholder="Precio" type="number" />
+        <button class="btn-submit" type="submit">Agregar</button>
+    </form>
+</div>

@@ -1,0 +1,26 @@
+<app-navbar-admin></app-navbar-admin>
+<div class="dashboard">
+  <h2>Estadísticas del Dashboard</h2>
+  
+  <div *ngIf="loading" class="loading-indicator">
+    <p>Cargando estadísticas...</p>
+  </div>
+  
+  <div *ngIf="error" class="error-message">
+    <p>{{ error }}</p>
+    <button (click)="loadDashboardStats()">Reintentar</button>
+  </div>
+  
+  <div *ngIf="stats && !loading && !error" class="stats-container">
+    <div class="stat-card">
+      <div class="stat-value">{{ stats.totalAutos }}</div>
+      <div class="stat-label">Total Autos</div>
+    </div>
+    
+    <div class="stat-card">
+      <div class="stat-value">{{ stats.totalUsuarios }}</div>
+      <div class="stat-label">Total Usuarios</div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

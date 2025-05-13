@@ -1,0 +1,32 @@
+<app-navbar-admin></app-navbar-admin>
+<h2>Gestión de Reservas</h2>
+<input type="text" placeholder="Buscar reserva..." [(ngModel)]="filtro">
+
+<table>
+  <thead>
+    <tr>
+      <th>Usuario</th>
+      <th>Auto</th>
+      <th>Servicio</th>
+      <th>Fecha y Hora</th>
+      <th>Estado</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let reserva of reservas">
+      <td>{{ reserva.usuario?.nombre || 'N/A' }}</td>
+      <td>{{ reserva.auto?.placa || 'N/A' }}</td>
+      <td>{{ reserva.servicio?.nombre || 'N/A' }}</td>
+      <td>{{ reserva.fechaHora | date: 'short' }}</td>
+      <td>
+        <select [(ngModel)]="reserva.estado" (change)="cambiarEstado(reserva)">
+          <option *ngFor="let estado of estados" [value]="estado">{{ estado }}</option>
+        </select>
+      </td>
+      <td>
+        <button class="eliminar" (click)="eliminarReserva(reserva.id)">🗑 Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -1,0 +1,169 @@
+/* Estilos para la barra de navegación */
+app-navbar-admin {
+  display: block;
+  background-color: #2c3e50;
+  color: white;
+  padding: 1rem 0;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Contenedor principal */
+div {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem 2rem;
+  font-family: 'Roboto', Arial, sans-serif;
+}
+
+/* Título */
+h2 {
+  color: #2c3e50;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #eaeaea;
+}
+
+/* Campo de búsqueda */
+input[placeholder="Buscar usuario..."] {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  transition: border-color 0.3s;
+}
+
+input[placeholder="Buscar usuario..."]:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+/* Tabla de usuarios */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+/* Encabezados de la tabla */
+thead {
+  background-color: #f8f9fa;
+}
+
+th {
+  text-align: left;
+  padding: 1rem;
+  font-weight: 600;
+  color: #495057;
+  border-bottom: 2px solid #e9ecef;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+}
+
+/* Filas de la tabla */
+tbody tr {
+  border-bottom: 1px solid #e9ecef;
+  transition: background-color 0.2s;
+}
+
+tbody tr:hover {
+  background-color: #f1f8ff;
+}
+
+tbody tr:last-child {
+  border-bottom: none;
+}
+
+/* Celdas de la tabla */
+td {
+  padding: 0.75rem 1rem;
+  color: #495057;
+  font-size: 0.95rem;
+}
+
+/* Inputs dentro de la tabla (modo edición) */
+td input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ced4da;
+  border-radius: 3px;
+  font-size: 0.9rem;
+}
+
+td input:focus {
+  outline: none;
+  border-color: #3498db;
+}
+
+/* Botones */
+button {
+  padding: 0.5rem 0.75rem;
+  margin-right: 0.5rem;
+  border: none;
+  border-radius: 3px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+button:last-child {
+  margin-right: 0;
+}
+
+/* Estilos para diferentes tipos de botones */
+button:nth-child(1) {
+  background-color: #3498db;
+  color: white;
+}
+
+button:nth-child(1):hover {
+  background-color: #2980b9;
+}
+
+button:nth-child(2) {
+  background-color: #e74c3c;
+  color: white;
+}
+
+button:nth-child(2):hover {
+  background-color: #c0392b;
+}
+
+/* Botones en modo edición */
+td button[ng-reflect-click*="saveEditUser"] {
+  background-color: #2ecc71;
+  color: white;
+}
+
+td button[ng-reflect-click*="saveEditUser"]:hover {
+  background-color: #27ae60;
+}
+
+td button[ng-reflect-click*="cancelEditUser"] {
+  background-color: #95a5a6;
+  color: white;
+}
+
+td button[ng-reflect-click*="cancelEditUser"]:hover {
+  background-color: #7f8c8d;
+}
+
+/* Diseño responsivo */
+@media (max-width: 768px) {
+  table {
+    display: block;
+    overflow-x: auto;
+  }
+  
+  th, td {
+    min-width: 120px;
+  }
+}

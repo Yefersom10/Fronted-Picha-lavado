@@ -6,11 +6,12 @@ import { ServicioService } from '../../../../service/servicio.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-reserva',
   standalone: true,
-  imports: [NavbarComponent, FormsModule, CommonModule, RouterLink],
+  imports: [NavbarComponent, FormsModule, CommonModule],
   templateUrl: './reserva.component.html',
   styleUrl: './reserva.component.css'
 })
@@ -29,7 +30,8 @@ export class ReservaComponent {
     private reservaService: ReservaService,
     private autoService: AutosService,
     private servicioService: ServicioService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -38,6 +40,18 @@ export class ReservaComponent {
       this.router.navigate(['/login']);
       return;
     }
+    this.route.queryParams.subscribe(params => {
+    const servicioId = params['servicioId'];
+    if (servicioId) {
+      this.reserva.servicioId = servicioId;
+    }
+    this.route.queryParams.subscribe(params => {
+    if (params['autoId']) {
+      this.reserva.autoId = params['autoId']; 
+    }
+  });
+  });
+  
     this.cargarAutos();
     this.cargarServicios();
   }
