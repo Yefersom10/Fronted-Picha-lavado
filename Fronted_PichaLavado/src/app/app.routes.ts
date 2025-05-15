@@ -8,10 +8,13 @@ import { RegisterCarsComponent } from './modules/user/pages/register-cars/regist
 import { ServiciosComponent } from './modules/user/pages/servicios/servicios.component';
 import { VehicleListComponent } from './modules/user/pages/vehicle-list/vehicle-list.component';
 import { ReservaComponent } from './modules/user/pages/reserva/reserva.component';
-import { ReservaAdminComponent } from './modules/admin/reserva-admin/reserva-admin.component';
-import { ServiciosAdminComponent } from './modules/admin/servicios-admin/servicios-admin.component';
-import { UserAdminComponent } from './modules/admin/user-admin/user-admin.component';
+import { ReservaAdminComponent } from './modules/admin/pages/reserva-admin/reserva-admin.component';
+import { ServiciosAdminComponent } from './modules/admin/pages/servicios-admin/servicios-admin.component';
+import { UserAdminComponent } from './modules/admin/pages/user-admin/user-admin.component';
 import { HomeAdminComponent } from './modules/admin/home-admin/home-admin.component';
+import { FacturaAdminComponent } from './modules/admin/pages/factura-admin/factura-admin.component';
+import { FacturaComponent } from './modules/user/pages/factura/factura.component';
+import { MisReservasComponent } from './modules/user/pages/mis-reservas/mis-reservas.component';
 
 
 export const routes: Routes = [
@@ -20,14 +23,17 @@ export const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'pagina-principal', component: PaginaPricipalComponent },
     { path: 'forgot-password', component: ForgotPasswordComponent },
-    { path: 'register-cars', component: RegisterCarsComponent }, 
-    { path: 'servicios', component: ServiciosComponent},
-    {path : 'servicios', component: ServiciosComponent},
-    {path : 'vehicle-list', component: VehicleListComponent},
-    {path : 'reservas', component: ReservaComponent},
-    {path : 'admin/dashboard', component: HomeAdminComponent},
-    {path : 'admin/clientes', component: UserAdminComponent},
-    {path : 'admin/servicios', component: ServiciosAdminComponent},
-    {path : 'admin/reservas', component: ReservaAdminComponent},
-    { path: '**', redirectTo: '' } 
+    { path: 'register-cars', component: RegisterCarsComponent },
+    { path: 'servicios', component: ServiciosComponent },
+    { path: 'servicios', component: ServiciosComponent },
+    { path: 'vehicle-list', component: VehicleListComponent },
+    { path: 'reservas', component: ReservaComponent },
+    {path: 'factura/:id', component: FacturaComponent},
+    { path: 'mis-reservas', component: MisReservasComponent },
+    { path: 'admin/dashboard', component: HomeAdminComponent },
+    { path: 'admin/clientes', component: UserAdminComponent },
+    { path: 'admin/servicios', component: ServiciosAdminComponent },
+    { path: 'admin/reservas', component: ReservaAdminComponent },
+    { path: 'admin/factura', component: FacturaAdminComponent },
+    { path: '**', redirectTo: '' }
 ];

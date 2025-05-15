@@ -15,7 +15,7 @@
   </thead>
   <tbody>
     <tr *ngFor="let reserva of reservas">
-      <td>{{ reserva.usuario?.nombre || 'N/A' }}</td>
+      <td>{{ reserva.users?.nombre || 'No disponible' }}</td>
       <td>{{ reserva.auto?.placa || 'N/A' }}</td>
       <td>{{ reserva.servicio?.nombre || 'N/A' }}</td>
       <td>{{ reserva.fechaHora | date: 'short' }}</td>

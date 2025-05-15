@@ -1,0 +1,68 @@
+.factura-card {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  font-family: Arial, sans-serif;
+}
+
+.factura-card h2 {
+  color: #2c3e50;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.factura-card p {
+  margin: 12px 0;
+  color: #34495e;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.factura-card strong {
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+/* Estilos para el botón de navegación */
+.btn-principal {
+  display: inline-block;
+  background-color: #3498db;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: 600;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-principal:hover {
+  background-color: #2980b9;
+}
+
+/* Contenedor para centrar el botón */
+.actions {
+  text-align: center;
+  margin-top: 15px;
+}
+
+/* Efecto de elevación para la tarjeta al pasar el mouse */
+.factura-card:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Estilos específicos para el monto total */
+.factura-card p:last-of-type {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px dashed #e0e0e0;
+}

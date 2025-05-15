@@ -1,7 +1,4 @@
-<!DOCTYPE html>
-<html lang="es">
-  <app-navbar></app-navbar>
-
+<app-navbar></app-navbar>
 <div class="container">
   <h2>Lista de Vehículos</h2>
 
@@ -9,29 +6,27 @@
     {{ errorMessage }}
   </div>
 
- <ul *ngIf="!loading; else loading">
-  <li *ngFor="let v of vehicles">
-    <strong>{{ v.marca }} {{ v.modelo }}</strong> - {{ v.placa }}
+  <ul *ngIf="!loading && vehicles.length > 0; else noVehiculos">
+    <li *ngFor="let v of vehicles">
+      <strong>{{ v.marca }} {{ v.modelo }}</strong> - {{ v.placa }}
 
-    <button (click)="deleteVehicle(v.id)" class="btn btn-danger">🗑 Eliminar</button>
-    <a
-      [routerLink]="['/reservas']"
-      [queryParams]="{ autoId: v.id }"
-      class="btn btn-primary"
-      style="margin-left: 10px;">
-      Reservar este vehículo
-    </a>
-    
-  </li>
+      <button (click)="deleteVehicle(v.id)" class="btn btn-danger">🗑 Eliminar</button>
+      <a
+        [routerLink]="['/reservas']"
+        [queryParams]="{ autoId: v.id }"
+        class="btn btn-primary"
+        style="margin-left: 100px;">
+        Hacer una Reservar con este vehículo
+      </a>
+    </li>
+  </ul>
+
   <a [routerLink]="['/register-cars']" class="btn btn-secondary" style="margin-left: 10px;">
-      Añadir un  vehículo nuevo
-    </a>
-</ul>
+    Añadir un vehículo nuevo
+  </a>
 
-  <ng-template #sinVehiculos>
-    <p *ngIf="!loading">No hay vehículos disponibles.</p>
-    <ng-template #loading>
-      <p>Cargando vehículos...</p>
-    </ng-template>
+  <ng-template #noVehiculos>
+    <p *ngIf="loading">Cargando vehículos...</p>
+    <p *ngIf="!loading && vehicles.length === 0">No hay vehículos disponibles.</p>
   </ng-template>
 </div>

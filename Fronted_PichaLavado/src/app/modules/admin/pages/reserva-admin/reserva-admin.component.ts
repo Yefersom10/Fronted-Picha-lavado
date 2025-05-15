@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common'; 
 import { FormsModule } from '@angular/forms';
-import { ReservaService } from '../../../service/reserva.service';
-import { NavbarAdminComponent } from '../navbar-admin/navbar-admin.component';
+import { ReservaService } from '../../../../service/reserva.service';
+import { NavbarAdminComponent } from '../../navbar-admin/navbar-admin.component';
 
 @Component({
   selector: 'app-reserva-admin',

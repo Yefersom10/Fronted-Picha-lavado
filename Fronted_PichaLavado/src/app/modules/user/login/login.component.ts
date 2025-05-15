@@ -66,7 +66,7 @@ export class LoginComponent {
                           this.router.navigate(['/pagina-principal']);
                           break;
                         case 'ADMIN':
-                          this.router.navigate(['/qw/home-admin']);
+                          this.router.navigate(['/admin/dashboard']);
                           break;
                         default:
                           this.router.navigate(['/pagina-principal']);

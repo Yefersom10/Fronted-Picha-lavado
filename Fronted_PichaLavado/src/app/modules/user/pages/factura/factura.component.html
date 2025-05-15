@@ -1,0 +1,12 @@
+<div *ngIf="factura" class="factura-card">
+  <h2>Factura #{{ factura.id }}</h2>
+  <p><strong>Fecha de emisión:</strong> {{ factura.fechaEmision | date: 'short' }}</p>
+  <p><strong>Cliente:</strong> {{ clienteNombre }}</p>
+  <p><strong>Auto:</strong> {{ factura.reserva.auto.modelo }} - {{ factura.reserva.auto.placa }}</p>
+  <p><strong>Servicio:</strong> {{ factura.reserva.servicio.nombre }} - ${{ factura.reserva.servicio.precio }}</p>
+  <p><strong>Monto Total:</strong> ${{ factura.montoTotal }}</p>
+
+  <div class="actions">
+    <a [routerLink]="['/pagina-principal']" class="btn-principal">Volver a la página principal</a>
+  </div>
+</div>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NavbarAdminComponent } from '../navbar-admin/navbar-admin.component';
-import { ServicioService } from '../../../service/servicio.service';
+import { NavbarAdminComponent } from '../../navbar-admin/navbar-admin.component';
+import { ServicioService } from '../../../../service/servicio.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';

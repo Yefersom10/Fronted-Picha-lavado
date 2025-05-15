@@ -1,0 +1,16 @@
+<app-navbar></app-navbar>
+<h2>Mis Reservas</h2>
+
+<div *ngIf="reservas.length === 0">
+  <p>No tienes reservas aún.</p>
+</div>
+
+<ul *ngIf="reservas.length > 0">
+  <li *ngFor="let reserva of reservas">
+    <p><strong>Auto:</strong> {{ reserva.auto?.marca }} {{ reserva.auto?.modelo }}</p>
+    <p><strong>Servicio:</strong> {{ reserva.servicio?.nombre }}</p>
+    <p><strong>Fecha y Hora:</strong> {{ reserva.horaReserva | date: 'medium' }}</p>
+    <p><strong>Estado:</strong> {{ reserva.estado }}</p>
+    <button (click)="verDetalle(reserva)">Ver Detalle</button>
+  </li>
+</ul>
