@@ -1,4 +1,6 @@
 export interface Factura {
+  estado: string;
+  reservaId: any;
   id: number;
   fechaEmision: string;
   montoTotal: number;

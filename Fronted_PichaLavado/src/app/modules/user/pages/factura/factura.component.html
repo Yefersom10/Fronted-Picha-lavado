@@ -5,6 +5,19 @@
   <p><strong>Auto:</strong> {{ factura.reserva.auto.modelo }} - {{ factura.reserva.auto.placa }}</p>
   <p><strong>Servicio:</strong> {{ factura.reserva.servicio.nombre }} - ${{ factura.reserva.servicio.precio }}</p>
   <p><strong>Monto Total:</strong> ${{ factura.montoTotal }}</p>
+  <p><strong>Estado de Pago:</strong> {{ factura.estadoPago }}</p>
+
+
+  <!-- Mostrar solo si NO está pagada -->
+  <button *ngIf="factura?.estado !== 'PAGADA'" (click)="abrirFormularioPago()">Pagar ahora</button>
+  <div *ngIf="mostrarFormulario">
+  <label for="metodo">Método de pago:</label>
+  <select id="metodo" [(ngModel)]="metodoPago">
+    <option value="tarjeta">Tarjeta</option>
+    <option value="transferencia">Transferencia</option>
+  </select>
+  <button (click)="pagarReserva()">Confirmar Pago</button>
+</div>
 
   <div class="actions">
     <a [routerLink]="['/pagina-principal']" class="btn-principal">Volver a la página principal</a>

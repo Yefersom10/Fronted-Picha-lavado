@@ -2,13 +2,13 @@ import { Component, Input, OnInit } from '@angular/core';
 import { NavbarComponent } from '../../../../shared/components/navbar/navbar.component';
 import { CommonModule } from '@angular/common';
 import { Factura } from './factura.model';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ReservaService } from '../../../../service/reserva.service';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-factura',
-  imports: [ CommonModule,RouterLink],
+  imports: [CommonModule, RouterLink],
   templateUrl: './factura.component.html',
   styleUrl: './factura.component.css'
 })
@@ -17,10 +17,12 @@ export class FacturaComponent {
   errorMessage: string = '';
   clienteNombre: string = '';
   clienteId: number = 0;
+  mostrarFormulario: boolean = false;
   constructor(
+    private router: Router,
     private route: ActivatedRoute,
     private http: HttpClient
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.obtenerClienteDesdeStorage();
@@ -52,4 +54,27 @@ export class FacturaComponent {
       }
     });
   }
+  metodoPago = 'tarjeta'; // valor por defecto
+
+pagarReserva() {
+  const reservaId = this.factura.id;
+
+  this.http.post(`http://localhost:8082/api/reservas/${reservaId}/confirmar-pago`, null, { responseType: 'json' })
+    .subscribe({
+      next: (resp) => {
+        console.log('Pago exitoso', resp);
+        alert('PAGO EXITOSO');
+        this.router.navigate(['/pagina-principal']);  // Redirige a página principal
+      },
+      error: (err) => console.error('Error al pagar reserva:', err)
+    });
+}
+
+
+  abrirFormularioPago() {
+    // Puedes mostrar un modal, alert o redirigir a una página
+    this.mostrarFormulario = true;
+  }
+
+
 }

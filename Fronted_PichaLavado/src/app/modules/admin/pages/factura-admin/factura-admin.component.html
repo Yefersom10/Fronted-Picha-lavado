@@ -1,2 +1,49 @@
 <app-navbar-admin></app-navbar-admin>
-<p>factura-admin works!</p>
+<div class="container">
+
+    <h2>Facturas</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Monto Total</th>
+                <th>Fecha Emisión</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let factura of facturas">
+                <td>{{ factura.id }}</td>
+                <td>{{ factura.montoTotal }}</td>
+                <td>{{ factura.fechaEmision | date:'short' }}</td>
+                <td>
+                    <button (click)="eliminarFactura(factura.id)">Eliminar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Pagos</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Monto</th>
+                <th>Fecha Pago</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let pago of pagos">
+                <td>{{ pago.id }}</td>
+                <td>{{ pago.monto }}</td>
+                <td>{{ pago.fechaPago | date:'short' }}</td>
+                <td>{{ pago.estado }}</td>
+                <td>
+                    <button (click)="eliminarPago(pago.id)">Eliminar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
