@@ -18,18 +18,22 @@
                 <td>{{ factura.fechaEmision | date:'short' }}</td>
                 <td>
                     <button (click)="eliminarFactura(factura.id)">Eliminar</button>
+                    
+
                 </td>
             </tr>
         </tbody>
+                   
     </table>
-
+                     
     <h2>Pagos</h2>
     <table>
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Monto</th>
                 <th>Fecha Pago</th>
+                <th>Reserva</th>
+                <th>metodo</th>
                 <th>Estado</th>
                 <th>Acciones</th>
             </tr>
@@ -37,8 +41,9 @@
         <tbody>
             <tr *ngFor="let pago of pagos">
                 <td>{{ pago.id }}</td>
-                <td>{{ pago.monto }}</td>
                 <td>{{ pago.fechaPago | date:'short' }}</td>
+                <td>{{ pago.reserva?.id || 'N/A' }}</td>
+                <th>{{pago.metodo}}</th>
                 <td>{{ pago.estado }}</td>
                 <td>
                     <button (click)="eliminarPago(pago.id)">Eliminar</button>

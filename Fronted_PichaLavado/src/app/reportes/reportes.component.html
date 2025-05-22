@@ -1,0 +1,46 @@
+<app-navbar-admin></app-navbar-admin>
+
+<div class="container">
+
+    <h2>Reporte de Facturas</h2>
+    <div class="filtros">
+        <input type="text" [(ngModel)]="filtro.nombre" placeholder="Filtrar por nombre" (input)="filtrarFacturas()" />
+        <input type="text" [(ngModel)]="filtro.servicio" placeholder="Filtrar por servicio"(input)="filtrarFacturas()" />
+        <input type="text" [(ngModel)]="filtro.placa" placeholder="Filtrar por placa" (input)="filtrarFacturas()" />
+        <input type="text" [(ngModel)]="filtro.correo" placeholder="Filtrar por correo" (input)="filtrarFacturas()" />
+        <input type="text" [(ngModel)]="filtro.auto" placeholder="Filtrar por auto" (input)="filtrarFacturas()" />
+        <input type="date" [(ngModel)]="filtro.fecha" (input)="filtrarFacturas()" />
+
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Monto</th>
+                <th>Fecha</th>
+                <th>Usuario</th>
+                <th>Email</th>
+                <th>Auto</th>
+                <th>Placa</th>
+                <th>Servicio</th>
+                <th>Precio</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let factura of facturasFiltradas">
+                <td>{{ factura.idFactura }}</td>
+                <td>{{ factura.montoTotal }}</td>
+                <td>{{ factura.fechaEmision }}</td>
+                <td>{{ factura.nombreUsuario }}</td>
+                <td>{{ factura.emailUsuario }}</td>
+                <td>{{ factura.nombreAuto }}</td>
+                <td>{{ factura.placaAuto }}</td>
+                <td>{{ factura.nombreServicio }}</td>
+                <td>{{ factura.precioServicio }}</td>
+            </tr>
+
+        </tbody>
+    </table>
+    <button (click)="descargarPdf()">Exportar a PDF</button>
+    <button (click)="descargarExcel()">Exportar a Excel</button>

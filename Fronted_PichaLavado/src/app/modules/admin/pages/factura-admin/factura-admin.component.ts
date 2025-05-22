@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavbarAdminComponent } from '../../navbar-admin/navbar-admin.component';
 import { FacturaService } from '../../../../service/factura.service';
 import { PagoService } from '../../../../service/pago.service';
@@ -10,7 +10,8 @@ import { CommonModule } from '@angular/common';
   templateUrl: './factura-admin.component.html',
    styleUrls: ['./factura-admin.component.css']
 })
-export class FacturaAdminComponent {
+
+export class FacturaAdminComponent implements OnInit {
   facturas: any[] = [];
   pagos: any[] = [];
 
@@ -55,4 +56,12 @@ export class FacturaAdminComponent {
       });
     }
   }
+  descargarPdf() {
+  window.open('http://localhost:8082/api/v1/facturas/facturas/pdf', '_blank');
+}
+
+descargarExcel() {
+  window.open('http://localhost:8082/api/v1/facturas/facturas/excel', '_blank');
+}
+
 }

@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class PagoService {
 
-  private baseUrl = 'http://localhost:8082/api/pagos';
+  private baseUrl = 'http://localhost:8082/api/v1/pagos';
 
   constructor(private http: HttpClient) {}
 
@@ -19,3 +19,4 @@ export class PagoService {
     return this.http.delete(`${this.baseUrl}/${id}`);
   }
 }
+

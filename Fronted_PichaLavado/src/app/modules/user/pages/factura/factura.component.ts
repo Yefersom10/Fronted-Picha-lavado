@@ -68,7 +68,7 @@ pagarReserva() {
       },
       error: (err) => console.error('Error al pagar reserva:', err)
     });
-}
+  }
 
 
   abrirFormularioPago() {

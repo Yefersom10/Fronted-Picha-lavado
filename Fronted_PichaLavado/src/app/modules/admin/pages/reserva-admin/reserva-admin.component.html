@@ -8,7 +8,8 @@
       <th>Usuario</th>
       <th>Auto</th>
       <th>Servicio</th>
-      <th>Fecha y Hora</th>
+      <th>Fecha</th>
+      <th>Hora</th>
       <th>Estado</th>
       <th>Acciones</th>
     </tr>
@@ -18,7 +19,8 @@
       <td>{{ reserva.users?.nombre || 'No disponible' }}</td>
       <td>{{ reserva.auto?.placa || 'N/A' }}</td>
       <td>{{ reserva.servicio?.nombre || 'N/A' }}</td>
-      <td>{{ reserva.fechaHora | date: 'short' }}</td>
+      <td>{{ reserva.fechaReserva | date: 'short' }}</td>
+      <td>{{ reserva.horaReserva }}</td>
       <td>
         <select [(ngModel)]="reserva.estado" (change)="cambiarEstado(reserva)">
           <option *ngFor="let estado of estados" [value]="estado">{{ estado }}</option>

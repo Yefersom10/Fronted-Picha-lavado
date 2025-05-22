@@ -15,6 +15,7 @@ import { HomeAdminComponent } from './modules/admin/home-admin/home-admin.compon
 import { FacturaAdminComponent } from './modules/admin/pages/factura-admin/factura-admin.component';
 import { FacturaComponent } from './modules/user/pages/factura/factura.component';
 import { MisReservasComponent } from './modules/user/pages/mis-reservas/mis-reservas.component';
+import { ReportesComponent } from './reportes/reportes.component';
 
 
 export const routes: Routes = [
@@ -35,5 +36,6 @@ export const routes: Routes = [
     { path: 'admin/servicios', component: ServiciosAdminComponent },
     { path: 'admin/reservas', component: ReservaAdminComponent },
     { path: 'admin/factura', component: FacturaAdminComponent },
+    {path: 'admin/reportes', component: ReportesComponent},
     { path: '**', redirectTo: '' }
 ];
